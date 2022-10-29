@@ -13,21 +13,34 @@
             </a>
         </li>
         <li>
+            <a href="/movie">
+                <span class="icon"><ion-icon name="videocam-outline"></ion-icon></span>
+                <span class="title">Movie</span>
+            </a>
+        </li>
+        <li>
+            <a href="/tvShow">
+                <span class="icon"><ion-icon name="tv-outline"></ion-icon></span>
+                <span class="title">TV Show</span>
+            </a>
+        </li>
+        <li>
+        <li>
             <a href="/actor">
-                <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
                 <span class="title">Actor</span>
             </a>
         </li>
         <li>
-            <a href="/country">
-                <span class="icon"><ion-icon name="globe-outline"></ion-icon></span>
-                <span class="title">Country</span>
+            <a href="/genre">
+                <span class="icon"><ion-icon name="bookmark-outline"></ion-icon></span>
+                <span class="title">Genre</span>
             </a>
         </li>
         <li>
             <a href="#">
-                <span class="icon"><ion-icon name="help-outline"></ion-icon></span>
-                <span class="title">Help</span>
+                <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                <span class="title">User</span>
             </a>
         </li>
         <li>

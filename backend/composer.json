@@ -6,16 +6,19 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-json": "*",
         "fruitcake/laravel-cors": "^2.0",
         "google/apiclient": "^2.12",
         "guzzlehttp/guzzle": "^7.0.1",
+        "illuminate/contracts": "*",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "league/flysystem-aws-s3-v3": "*",
         "nao-pon/flysystem-google-drive": "~1.1",
-        "tymon/jwt-auth": "dev-develop",
-      "ext-json": "*"
+        "pion/laravel-chunk-upload": "^1.5",
+        "predis/predis": "^2.0",
+        "tymon/jwt-auth": "dev-develop"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

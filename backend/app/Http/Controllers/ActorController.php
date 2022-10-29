@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\UploadImageToS3;
 use App\Repositories\ActorRepository;
 use App\Repositories\MediaRepository;
 use Carbon\Carbon;
@@ -197,19 +198,41 @@ class ActorController extends Controller
         $file = $request->file('file-thumbnail');
         $extension = $file->getClientOriginalExtension();
         $type = $file->getMimeType();
-        $path = $request->file('file-thumbnail')->store('images', 's3');
+        $fileName = $file->getFilename().Carbon::now()->timestamp;
+
+        $filePath = Storage::putFileAs('files/images', $file, $fileName);
 
         $media = array(
-            'title' => basename($path),
-            'url' => Storage::disk('s3')->url($path),
+            'title' => basename($fileName),
+            'url' => env('AWS_URL').'/images/'.$fileName,
             'extension' => $extension,
             'date' => Carbon::now(),
             'type' => $type,
             'enabled' => true,
         );
 
-        $mediaCreated = $this->mediaRepo->create($media);
-        return $mediaCreated;
+        UploadImageToS3::dispatch($fileName, $filePath)->delay(Carbon::now()->addSecond(10));
+
+        return $this->mediaRepo->create($media);
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->keyword;
+        $listActor = $this->actorRepo->getActorByKeyword($keyword)->toArray();
+        $total = count($listActor);
+        foreach ($listActor as &$actor) {
+            $media = $this->mediaRepo->find($actor->media_id);
+            $actor->img_thumbnail = $media['url'];
+        }
+
+        $this->message = 'Lấy bài viết thành công';
+        $this->status  = 'success';
+
+        $data          = [
+            'data'  => $listActor,
+            'total' => $total,
+        ];
+        return $this->responseData($data);
     }
 
 }

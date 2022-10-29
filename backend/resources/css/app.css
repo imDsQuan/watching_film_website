@@ -538,6 +538,99 @@ body {
     text-decoration: underline;
 }
 
+.fileinput {
+    width: 100%;
+    position: relative;
+    min-height: 100px;
+}
+
+.fileinput .btn-select {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.fileinput .img-preview {
+    width: 100%;
+    height: 100%;
+}
+
+.fileinput .img-cover {
+    height: 220px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+/*tab movie*/
+
+.views-body {
+    right: 0px !important;
+    top: -40px !important;
+    position: absolute !important;
+}
+
+.card-stats .card-header {
+    float: left;
+    text-align: center;
+    width: 84px;
+}
+
+.card .card-content {
+    padding: 15px 20px;
+    position: relative;
+}
+
+.card-stats [data-background-color="green"] {
+    border-radius: 5px !important;
+    margin: 5px !important;
+    padding: 15px !important;
+    background: #ff9801 !important;
+}
+
+.card-content.trailer-body>.title {
+    height: 72px;
+    line-height: 72px;
+    font-size: 15pt;
+    font-weight: 700;
+}
+
+.tab-moivie{
+    border-top: 1px solid #cccccc38;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.btn-tab-movie{
+    background-color: white !important;
+    border:2px solid black !important;
+    color: black !important;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 20px;
+
+}
+
+.btn-tab-movie-active{
+    background: linear-gradient(60deg, #FF5722, #fb8c00) !important;
+    border:2px solid #fb8c00 !important;
+    color: white !important;
+    padding: 6px 20px;
+    line-height: 20px;
+    font-size: 16px;
+}
+
+.tab-moivie .btn-tab-movie, .tab-moivie .btn-tab-movie-active {
+    width: calc(16.2828% - 2px);
+}
+
+.btn-disabled{
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+
 
 /* responsive */
 

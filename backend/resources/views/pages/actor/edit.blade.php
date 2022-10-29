@@ -15,7 +15,7 @@
             </div>
             <!-- User Image -->
             <div class="user">
-                <img src="user.jpg" alt="" >
+                <img src="{{url('/images/avatar_default.png')}}" alt="" >
             </div>
         </div>
 
@@ -29,47 +29,9 @@
                 <div class="card-body">
                     <form action="/actor/update" method="POST" enctype='multipart/form-data'>
                         {{ csrf_field() }}
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="fileinput">
-                                    <a class="btn btn-secondary btn-select">Select Image</a>
-                                    <img class="img-preview" src="{{$actor->img_thumbnail}}" alt="">
-                                    <input type="text" name="fileUrl" id="fileUrl" value="{{$actor->img_thumbnail}}" hidden/>
-                                    <input type="text" name="id" id="idActor" value="{{$actor->id}}" hidden/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <input class="file-thumbnail" type="file" name="file-thumbnail" hidden>
 
-                                <div class="form-group">
-                                    <label for="fullname">Full Name</label>
-                                    <input type="text" class="form-control" id="fullname" name="name" value="{{$actor->name}}" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="type">Type</label>
-                                    <select class="form-control" id="type" name="type">
-                                        <option value="Actor">Actor</option>
-                                        <option value="Actress">Actress</option>
-                                        <option value="Director">Director</option>
-                                        <option value="Producer">Producer</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="born">Born</label>
-                                    <input type="text" class="form-control" id="born" name="born" value="{{$actor->born}}" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="height">Height</label>
-                                    <input type="text" class="form-control" id="height" name="height" value="{{$actor->height}}" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="bio">Bio</label>
-                                    <textarea class="form-control" id="bio" rows="3" name="bio" required>{{$actor->bio}}</textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="/actor" class="btn btn-secondary">Cancel</a>
-                            </div>
-                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="/actor" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </div>

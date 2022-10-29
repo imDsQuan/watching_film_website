@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
+class Role extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_country';
+    protected $table = 'tbl_role';
 
-    protected $fillable = ['media_id', 'title'];
+    protected $fillable = ['poster_id', 'actor_id', 'role', 'position'];
+
 }

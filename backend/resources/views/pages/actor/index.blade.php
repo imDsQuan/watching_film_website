@@ -9,13 +9,18 @@
             <!-- search -->
             <div class="search">
                 <label for="">
-                    <input type="text" placeholder="Search Here">
+                    <input id="searchActor" type="text" placeholder="Search Here">
                     <ion-icon name="search-outline"></ion-icon>
+                    <div id="loading-spinner" class="invisible" style="transform: translateY(-50%);position: absolute;top: 50%;right: 8px;scale: 0.9;">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
                 </label>
             </div>
             <!-- User Image -->
             <div class="user">
-                <img src="user.jpg" alt="" >
+                <img src="{{url('/images/avatar_default.png')}}" alt="" >
             </div>
         </div>
 
@@ -70,29 +75,29 @@
 
         let deleteId = null;
 
-        function getItems (page) {
-            var dataHtml           = ``;
-            var pagination_news_posts = document.getElementById ('pagination-news-posts');
-            $.ajax ({
-                url    : "http://localhost:8000/" + "get-actor",
-                method : "POST",
-                data   : {
-                    page      : page,
-                    limit     : 20,
+        function getItems(page) {
+            var dataHtml = ``;
+            var pagination_news_posts = document.getElementById('pagination-news-posts');
+            $.ajax({
+                url: "http://localhost:8000/" + "actor/get-actor",
+                method: "POST",
+                data: {
+                    page: page,
+                    limit: 20,
                 },
 
-                dataType : "json",
-                success  : function (data) {
+                dataType: "json",
+                success: function (data) {
                     console.log(data);
                     if (data.data.data.length > 0) {
                         for (var count = 0; count < data.data.data.length; count++) {
                             dataHtml += `<div class="col-3 my-3">
                                             <div class="card">
-                                                <img class="card-img-top" src="` + data.data.data[count].img_thumbnail +`" alt="Card image cap" style="height: 200px; object-fit: cover">
+                                                <img class="card-img-top" src="` + data.data.data[count].img_thumbnail + `" alt="Card image cap" style="height: 200px; object-fit: cover">
                                                 <div class="card-body">
                                                     <h5 class="card-title text-center">` + data.data.data[count].name + `</h5>
                                                     <div class="d-flex justify-content-center align-items-center">
-                                                        <a href=" /actor/` + data.data.data[count].slug +`/edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
+                                                        <a href=" /actor/` + data.data.data[count].slug + `/edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
                                                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData(` + data.data.data[count].id + `)"><ion-icon name="trash-outline"></ion-icon></button>
                                                     </div>
                                                 </div>
@@ -163,7 +168,7 @@
                             } else {
                                 pagination += `<li class="page-item disabled" onclick="getItems(` + (page + 1) + `)">
                                                  <span class="page-link">Next</span>
-                                             </li>` ;
+                                             </li>`;
                             }
                             pagination_news_posts.innerHTML = pagination;
                         } else {
@@ -184,24 +189,78 @@
             deleteId = deleteActorId;
         }
 
+        function search(keyword) {
+            var dataHtml = ``;
+            var pagination_news_posts = document.getElementById('pagination-news-posts');
+            $.ajax({
+                url: "http://localhost:8000/" + "actor/search",
+                method: "POST",
+                data: {
+                    keyword: keyword,
+                },
+                dataType: "json",
+                beforeSend: function() {
+                    $('#loading-spinner').toggleClass('invisible');
+                },
+                success: function (data) {
+                    console.log(data);
+                    for (var count = 0; count < data.data.data.length; count++) {
+                        dataHtml += `<div class="col-3 my-3">
+                                            <div class="card">
+                                                <img class="card-img-top" src="` + data.data.data[count].img_thumbnail + `" alt="Card image cap" style="height: 200px; object-fit: cover">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-center">` + data.data.data[count].name + `</h5>
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <a href=" /actor/` + data.data.data[count].slug + `/edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
+                                                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData(` + data.data.data[count].id + `)"><ion-icon name="trash-outline"></ion-icon></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                    }
+                    let news_container = document.getElementById('news-container');
+                    news_container.innerHTML = dataHtml;
+                    pagination_news_posts.innerHTML = '';
+                }, error() {
+                },
+                complete: function(){
+                    $('#loading-spinner').toggleClass('invisible');
+                }
+            });
+        }
 
 
         $(document).ready(function () {
-            getItems (1);
-            $('#btn-delete-actor').on('click', function(){
-                $.ajax ({
+            getItems(1);
+
+            $('#loading-spinner').hide();
+
+
+            $('#btn-delete-actor').on('click', function () {
+                $.ajax({
                     url: "http://localhost:8000/" + "actor/delete/" + deleteId,
                     method: "POST",
                     dataType: "json",
-                    success: function(){
+                    success: function () {
                         $('#deleteModal').modal('toggle');
                         getItems(1);
-                    },
+                    }
                 })
+            });
+            let searchBar = $('#searchActor');
+            searchBar.bind("enterKey",function(e){
+                search(searchBar.val())
+            });
+            searchBar.keyup(function(e){
+                if(e.keyCode === 13)
+                {
+                    $(this).trigger("enterKey");
+                }
             });
         });
 
     </script>
+
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

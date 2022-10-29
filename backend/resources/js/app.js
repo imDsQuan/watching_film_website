@@ -17,13 +17,26 @@ function activeLink(){
 list.forEach((item) => item.addEventListener('mouseover', activeLink))
 
 $(document).ready(function(){
-    $(".btn-select").on('click',function(){
+    $("#btn-select-thumbnail").on('click',function(){
         $('input.file-thumbnail[type="file"]').trigger('click');
 
     });
 
     $('input.file-thumbnail[type="file"]').on('change',function(e) {
-        let imgPreview = document.querySelector(".img-preview");
+        let imgPreview = document.querySelector(".img-thumbnail");
+        imgPreview.src = URL.createObjectURL(e.target.files[0]);
+        imgPreview.onload = function() {
+            URL.revokeObjectURL(imgPreview.src) // free memory
+        }
+    });
+
+    $("#btn-select-cover").on('click',function(){
+        $('input.file-cover[type="file"]').trigger('click');
+
+    });
+
+    $('input.file-cover[type="file"]').on('change',function(e) {
+        let imgPreview = document.querySelector(".img-cover");
         imgPreview.src = URL.createObjectURL(e.target.files[0]);
         imgPreview.onload = function() {
             URL.revokeObjectURL(imgPreview.src) // free memory

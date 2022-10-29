@@ -15,7 +15,7 @@
             </div>
             <!-- User Image -->
             <div class="user">
-                <img src="user.jpg" alt="" >
+                <img src="{{url('/images/avatar_default.png')}}" alt="" >
             </div>
         </div>
 
@@ -32,8 +32,8 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="fileinput">
-                                    <a class="btn btn-secondary btn-select">Select Image</a>
-                                    <img class="img-preview" src="{{url('images/image_placeholder.jpg')}}" alt="">
+                                    <a id="btn-select-thumbnail" class="btn btn-secondary btn-select">Select Image</a>
+                                    <img class="img-preview img-thumbnail" src="{{url('images/image_placeholder.jpg')}}" alt="">
                                 </div>
                             </div>
                             <div class="col">

@@ -15,7 +15,7 @@
             </div>
             <!-- User Image -->
             <div class="user">
-                <img src="user.jpg" alt="" >
+                <img src="{{url('/images/avatar_default.png')}}" alt="" >
             </div>
         </div>
 
@@ -156,7 +156,7 @@
                     <tr>
                         <td width="60px">
                             <div class="imgBx">
-                                <img src="user.jpg" alt="">
+                                <img src="{{url('/images/avatar_default.png')}}" alt="">
                             </div>
                         </td>
                         <td>
@@ -166,7 +166,7 @@
                     <tr>
                         <td width="60px">
                             <div class="imgBx">
-                                <img src="user.jpg" alt="">
+                                <img src="{{url('/images/avatar_default.png')}}" alt="">
                             </div>
                         </td>
                         <td>
@@ -176,7 +176,7 @@
                     <tr>
                         <td width="60px">
                             <div class="imgBx">
-                                <img src="user.jpg" alt="">
+                                <img src="{{url('/images/avatar_default.png')}}" alt="">
                             </div>
                         </td>
                         <td>
@@ -186,7 +186,7 @@
                     <tr>
                         <td width="60px">
                             <div class="imgBx">
-                                <img src="user.jpg" alt="">
+                                <img src="{{url('/images/avatar_default.png')}}" alt="">
                             </div>
                         </td>
                         <td>
@@ -196,7 +196,7 @@
                     <tr>
                         <td width="60px">
                             <div class="imgBx">
-                                <img src="user.jpg" alt="">
+                                <img src="{{url('/images/avatar_default.png')}}" alt="">
                             </div>
                         </td>
                         <td>
@@ -206,7 +206,7 @@
                     <tr>
                         <td width="60px">
                             <div class="imgBx">
-                                <img src="user.jpg" alt="">
+                                <img src="{{url('/images/avatar_default.png')}}" alt="">
                             </div>
                         </td>
                         <td>
@@ -216,7 +216,7 @@
                     <tr>
                         <td width="60px">
                             <div class="imgBx">
-                                <img src="user.jpg" alt="">
+                                <img src="{{url('/images/avatar_default.png')}}" alt="">
                             </div>
                         </td>
                         <td>
@@ -226,7 +226,7 @@
                     <tr>
                         <td width="60px">
                             <div class="imgBx">
-                                <img src="user.jpg" alt="">
+                                <img src="{{url('/images/avatar_default.png')}}" alt="">
                             </div>
                         </td>
                         <td>
