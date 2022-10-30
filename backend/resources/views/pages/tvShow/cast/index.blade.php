@@ -90,7 +90,7 @@
                                         <h3 class="text-center">{{$actor->role}}</h3>
                                         <h5 class="card-title text-center">{{$actor->name}}</h5>
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <a href=" /tvShow/{{$tvShow->slug}}/cast/{{$actor->role_id}}/edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
+                                            <a href="/tvShow/{{$tvShow->slug}}/cast/{{$actor->role_id}}/edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
                                             <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData({{$actor->role_id}})"><ion-icon name="trash-outline"></ion-icon></button>
                                             <a href="/tvShow/{{$tvShow->slug}}/cast/{{$actor->role_id}}/up" class="btn btn-info mx-2"><ion-icon name="chevron-up-outline"></ion-icon></a>
                                             <a href="/tvShow/{{$tvShow->slug}}/cast/{{$actor->role_id}}/down" class="btn btn-info"><ion-icon name="chevron-down-outline"></ion-icon></a>

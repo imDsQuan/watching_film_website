@@ -79,17 +79,34 @@ Route::group(['middleware' => ['CheckAdminLogin', 'CORS']], function() {
     Route::get('tvShow/{slug}/cast/{roleId}/up', [TvShowController::class, 'upCast']);
     Route::get('tvShow/{slug}/cast/{roleId}/down', [TvShowController::class, 'downCast']);
 
+    Route::get('/tvShow/{slug}/season/{seasonId}/episode/create', [TvShowController::class, 'createEpisode']);
+    Route::post('/tvShow/{slug}/season/{seasonId}/episode/', [TvShowController::class, 'storeEpisode']);
+    Route::get('/tvShow/{slug}/season/{seasonId}/episode/{episodeId}/edit', [TvShowController::class, 'editEpisode']);
+    Route::post('/tvShow/{slug}/season/{seasonId}/episode/{episodeId}/update', [TvShowController::class, 'updateEpisode']);
+    Route::post('/tvShow/{slug}/season/{seasonId}/episode/{episodeId}/delete', [TvShowController::class, 'deleteEpisode']);
+    Route::get('/tvShow/{slug}/season/{seasonId}/episode/{episodeId}/up', [TvShowController::class, 'upEpisode']);
+    Route::get('/tvShow/{slug}/season/{seasonId}/episode/{episodeId}/down', [TvShowController::class, 'downEpisode']);
 
-    Route::post('tvShow/{movieId}/source/{sourceId}/delete', [TvShowController::class, 'destroySource']);
-    Route::get('tvShow/{movieId}/source/{sourceId}/edit', [TvShowController::class, 'editSource']);
-    Route::post('tvShow/{movieId}/source/{sourceId}', [TvShowController::class, 'updateSource']);
+
+    Route::get('/tvShow/{slug}/season/{seasonId}/edit', [TvShowController::class, 'editSeason']);
+    Route::post('/tvShow/{slug}/season/{seasonId}/update', [TvShowController::class, 'updateSeason']);
+    Route::post('/tvShow/{slug}/season/{seasonId}/delete', [TvShowController::class, 'deleteSeason']);
+    Route::get('/tvShow/{slug}/season/{seasonId}/up', [TvShowController::class, 'upSeason']);
+    Route::get('/tvShow/{slug}/season/{seasonId}/down', [TvShowController::class, 'downSeason']);
+    Route::post('/tvShow/{slug}/season', [TvShowController::class, 'storeSeason']);
+    Route::get('/tvShow/{slug}/season', [TvShowController::class, 'indexSeason']);
+
+
+    Route::post('tvShow/{slug}/season/{seasonId}/episode/{episodeId}/source/{sourceId}/delete', [TvShowController::class, 'destroySource']);
+    Route::get('tvShow/{slug}/season/{seasonId}/episode/{episodeId}/source/{sourceId}/edit', [TvShowController::class, 'editSource']);
+    Route::post('tvShow/{slug}/season/{seasonId}/episode/{episodeId}/source/{sourceId}', [TvShowController::class, 'updateSource']);
     Route::post('tvShow/source/upload', [TvShowController::class,'uploadSourceFile']);
-    Route::get('tvShow/{movieId}/source/create', [TvShowController::class, 'createSource']);
-    Route::get('tvShow/{slug}/source', [TvShowController::class, 'indexSource']);
-    Route::post('tvShow/{slug}/source', [TvShowController::class,'storeSource']);
+    Route::get('tvShow/{slug}/season/{seasonId}/episode/{episodeId}/source/create', [TvShowController::class, 'createSource']);
+    Route::get('tvShow/{slug}/season/{seasonId}/episode/{episodeId}/source', [TvShowController::class, 'indexSource']);
+    Route::post('tvShow/{slug}/season/{seasonId}/episode/{episodeId}/source', [TvShowController::class,'storeSource']);
 
-    Route::post('tvShow/{slug}/season', [TvShowController::class, 'storeSeason']);
-    Route::get('tvShow/{slug}/season', [TvShowController::class, 'indexSeason']);
+
+
 
     Route::post('tvShow/update', [TvShowController::class,'update']);
     Route::post('tvShow/getTvShow', [TvShowController::class, 'getTvShow']);

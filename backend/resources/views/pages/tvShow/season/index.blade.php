@@ -157,11 +157,11 @@
                        class="btn btn-tab-movie-active d-flex justify-content-center align-items-center">
                         <ion-icon name="library-outline" style="font-size:16px; margin-right:8px;"></ion-icon>
                         Episode</a>
-                    <a href="/movie/{{$tvShow->slug}}/cast"
+                    <a href="/tvShow/{{$tvShow->slug}}/cast"
                        class="btn btn-tab-movie d-flex justify-content-center align-items-center">
                         <ion-icon name="people-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon>
                         Cast</a>
-                    <a href="/movie/{{$tvShow->slug}}/trailer"
+                    <a href="/tvShow/{{$tvShow->slug}}/trailer"
                        class="btn btn-tab-movie d-flex justify-content-center align-items-center">
                         <ion-icon name="play-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon>
                         Trailer</a>
@@ -179,7 +179,7 @@
                         <ion-icon name="library-outline" style="font-size: 32px;"></ion-icon>
                         <div class="font-weight-bold ml-2" style="font-size: 32px;">Season "{{$tvShow->title}}"</div>
                     </div>
-                    <button id="btn-create-season" href="/movie/{{$tvShow->id}}/source/create" class="btn float-right">
+                    <button id="btn-create-season" href="/tvShow/{{$tvShow->id}}/source/create" class="btn float-right">
                         <div class="card m-2 bg-success" style="height: 40px;">
                             <div class="card-body d-flex justify-content-center align-items-center text-white">
                                 <ion-icon name="add-circle-outline" style="font-size: 24px;"></ion-icon>
@@ -198,11 +198,11 @@
                     <h4>Add Season </h4>
                 </div>
                 <div class="card-body">
-                    <form action="tvShow/{{$tvShow->slug}}/season" method="POST">
+                    <form action="/tvShow/{{$tvShow->slug}}/season" method="POST">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="title">Season Title</label>
-                            <input type="text" class="form-control" id="title" name="role" value="" required>
+                            <input type="text" class="form-control" id="title" name="title" required>
                         </div>
                         <div class="float-right">
                             <button type="submit" class="btn btn-primary mt-4">Submit</button>
@@ -212,101 +212,47 @@
                 </div>
 
             </div>
-            <div class="season-box">
-                <div class="season-title">
-                    <ion-icon name="newspaper-outline"></ion-icon>
-                    <span class="title">Tro ve tu coi chet</span>
-                </div>
-                <div class="season-control">
-                    <a href=" /tvShow/{{$tvShow->slug}}/cast//edit" class="btn btn-success mr-2 d-flex align-items-center"><ion-icon class="mr-2" name="add-circle-outline"></ion-icon> New Episode</a>
-                    <a href=" /tvShow/{{$tvShow->slug}}/cast//edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData()"><ion-icon name="trash-outline"></ion-icon></button>
-                    <a href="/tvShow/{{$tvShow->slug}}/cast//up" class="btn btn-info mx-2"><ion-icon name="chevron-up-outline"></ion-icon></a>
-                    <a href="/tvShow/{{$tvShow->slug}}/cast//down" class="btn btn-info"><ion-icon name="chevron-down-outline"></ion-icon></a>
-                </div>
-                <div class="season-body">
-                    <div class="episode">
-                        <div class="img">
-                            <img class="" src="{{url('images/image_placeholder.jpg')}}" alt="">
-                        </div>
-                        <div class="episode-body">
-                            <div class="title">Alive in Tucson</div>
-                            <div class="body">After a deadly virus wipes out humanity, Phil Miller searches the country for more survivors.</div>
-                        </div>
-                        <div class="episode-control">
-                            <a href=" /tvShow/{{$tvShow->slug}}/cast//edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData()"><ion-icon name="trash-outline"></ion-icon></button>
-                            <a href="/tvShow/{{$tvShow->slug}}/cast//up" class="btn btn-info mx-2"><ion-icon name="chevron-up-outline"></ion-icon></a>
-                            <a href="/tvShow/{{$tvShow->slug}}/cast//down" class="btn btn-info"><ion-icon name="chevron-down-outline"></ion-icon></a>
-                        </div>
+            @foreach($listSeason as $season)
+                <div class="season-box">
+                    <div class="season-title">
+                        <ion-icon name="newspaper-outline"></ion-icon>
+                        <span class="title">{{$season->title}}</span>
                     </div>
-                    <div class="episode">
-                        <div class="img">
-                            <img class="" src="{{url('images/image_placeholder.jpg')}}" alt="">
-                        </div>
-                        <div class="episode-body">
-                            <div class="title">Alive in Tucson</div>
-                            <div class="body">After a deadly virus wipes out humanity, Phil Miller searches the country for more survivors.</div>
-                        </div>
-                        <div class="episode-control">
-                            <a href=" /tvShow/{{$tvShow->slug}}/cast//edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData()"><ion-icon name="trash-outline"></ion-icon></button>
-                            <a href="/tvShow/{{$tvShow->slug}}/cast//up" class="btn btn-info mx-2"><ion-icon name="chevron-up-outline"></ion-icon></a>
-                            <a href="/tvShow/{{$tvShow->slug}}/cast//down" class="btn btn-info"><ion-icon name="chevron-down-outline"></ion-icon></a>
-                        </div>
+                    <div class="season-control">
+                        <a href="/tvShow/{{$tvShow->slug}}/season/{{$season->id}}/episode/create" class="btn btn-success mr-2 d-flex align-items-center"><ion-icon class="mr-2" name="add-circle-outline"></ion-icon> New Episode</a>
+                        <a href="/tvShow/{{$tvShow->slug}}/season/{{$season->id}}/edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><ion-icon name="trash-outline"></ion-icon></button>
+                        <a href="/tvShow/{{$tvShow->slug}}/season/{{$season->id}}/up" class="btn btn-info mx-2"><ion-icon name="chevron-up-outline"></ion-icon></a>
+                        <a href="/tvShow/{{$tvShow->slug}}/season/{{$season->id}}/down" class="btn btn-info"><ion-icon name="chevron-down-outline"></ion-icon></a>
                     </div>
-                    <div class="episode">
-                        <div class="img">
-                            <img class="" src="{{url('images/image_placeholder.jpg')}}" alt="">
-                        </div>
-                        <div class="episode-body">
-                            <div class="title">Alive in Tucson</div>
-                            <div class="body">After a deadly virus wipes out humanity, Phil Miller searches the country for more survivors.</div>
-                        </div>
-                        <div class="episode-control">
-                            <a href=" /tvShow/{{$tvShow->slug}}/cast//edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData()"><ion-icon name="trash-outline"></ion-icon></button>
-                            <a href="/tvShow/{{$tvShow->slug}}/cast//up" class="btn btn-info mx-2"><ion-icon name="chevron-up-outline"></ion-icon></a>
-                            <a href="/tvShow/{{$tvShow->slug}}/cast//down" class="btn btn-info"><ion-icon name="chevron-down-outline"></ion-icon></a>
-                        </div>
-                    </div>
-                    <div class="episode">
-                        <div class="img">
-                            <img class="" src="{{url('images/image_placeholder.jpg')}}" alt="">
-                        </div>
-                        <div class="episode-body">
-                            <div class="title">Alive in Tucson</div>
-                            <div class="body">After a deadly virus wipes out humanity, Phil Miller searches the country for more survivors.</div>
-                        </div>
-                        <div class="episode-control">
-                            <a href=" /tvShow/{{$tvShow->slug}}/cast//edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData()"><ion-icon name="trash-outline"></ion-icon></button>
-                            <a href="/tvShow/{{$tvShow->slug}}/cast//up" class="btn btn-info mx-2"><ion-icon name="chevron-up-outline"></ion-icon></a>
-                            <a href="/tvShow/{{$tvShow->slug}}/cast//down" class="btn btn-info"><ion-icon name="chevron-down-outline"></ion-icon></a>
-                        </div>
-                    </div>
-                    <div class="episode">
-                        <div class="img">
-                            <img class="" src="{{url('images/image_placeholder.jpg')}}" alt="">
-                        </div>
-                        <div class="episode-body">
-                            <div class="title">Alive in Tucson</div>
-                            <div class="body">After a deadly virus wipes out humanity, After a deadly virus wipes out humanity, After a deadly virus wipes out humanity, After a deadly virus wipes out humanity, After a deadly virus wipes out humanity,After a deadly virus wipes out humanity, Phil Miller searches the country for more survivors.</div>
-                        </div>
-                        <div class="episode-control">
-                            <a href=" /tvShow/{{$tvShow->slug}}/cast//edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData()"><ion-icon name="trash-outline"></ion-icon></button>
-                            <a href="/tvShow/{{$tvShow->slug}}/cast//up" class="btn btn-info mx-2"><ion-icon name="chevron-up-outline"></ion-icon></a>
-                            <a href="/tvShow/{{$tvShow->slug}}/cast//down" class="btn btn-info"><ion-icon name="chevron-down-outline"></ion-icon></a>
-                        </div>
+                    <div class="season-body">
+                        @foreach($season->listEpisode as $episode)
+                            <div class="episode">
+                                <div class="img">
+                                    <img class="" src="{{$episode->img_url}}" alt="">
+                                </div>
+                                <div class="episode-body">
+                                    <div class="title">{{$episode->title}}</div>
+                                    <div class="body">{{$episode->description}}</div>
+                                </div>
+                                <div class="episode-control">
+                                    <a href="/tvShow/{{$tvShow->slug}}/season/{{$season->id}}/episode/{{$episode->id}}/edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteEpisodeModal" ><ion-icon name="trash-outline"></ion-icon></button>
+                                    <a href="/tvShow/{{$tvShow->slug}}/season/{{$season->id}}/episode/{{$episode->id}}/up" class="btn btn-info mx-2"><ion-icon name="chevron-up-outline"></ion-icon></a>
+                                    <a href="/tvShow/{{$tvShow->slug}}/season/{{$season->id}}/episode/{{$episode->id}}/down" class="btn btn-info"><ion-icon name="chevron-down-outline"></ion-icon></a>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
-            </div>
 
+            @endforeach
         </div>
 
 
     </div>
+
+
 
 
     <script>
@@ -318,6 +264,36 @@
             $('#btn-cancel-create-season').on('click', function () {
                 $('#create-season-box').hide();
             })
+            @if(isset($listSeason) && $listSeason != null)
+
+                $('#btn-delete-season').on('click', function () {
+                    $.ajax({
+                        url: "http://localhost:8000/" + "tvShow/{{$tvShow->id}}/season/{{$season->id}}/delete",
+                        method: "POST",
+                        dataType: "json",
+                        success: function () {
+                            $('#deleteModal').modal('toggle');
+                            window.location.reload();
+                        }
+                    })
+                });
+            @endif
+
+            @if(isset($season->listEpisode) && $season->listEpisode != null)
+
+            $('#btn-delete-episode').on('click', function () {
+                $.ajax({
+                    url: "http://localhost:8000/" + "tvShow/{{$tvShow->slug}}/season/{{$season->id}}/episode/{{$episode->id}}/delete",
+                    method: "POST",
+                    dataType: "json",
+                    success: function () {
+                        $('#deleteEpisodeModal').modal('toggle');
+                        window.location.reload();
+                    }
+                })
+            });
+            @endif
+
         })
 
 
@@ -328,17 +304,38 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Delete Source</h5>
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Season</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Do You Want To Delete This Source?
+                    Do You Want To Delete This Season?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" id="btn-delete-source">Delete</button>
+                    <button type="button" class="btn btn-danger" id="btn-delete-season">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteEpisodeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Episode</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Do You Want To Delete This Episode?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="btn-delete-episode">Delete</button>
                 </div>
             </div>
         </div>

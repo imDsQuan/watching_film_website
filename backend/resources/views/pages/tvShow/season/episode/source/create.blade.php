@@ -24,9 +24,9 @@
 
             <div class="card card-stats card-initial" style="margin: 15px 0;">
                 <div class="card-content views-body  pull-right">
-                    <a href="#" class="btn btn-tab-movie rounded-pill" style="background: #555 !important; color: #fff !important; border:none !important;"><div class="d-flex justify-content-center align-items-center"><ion-icon name="eye-outline" class="mr-2"></ion-icon> {{$movie->views}}</div></a>
+                    <a href="#" class="btn btn-tab-movie rounded-pill" style="background: #555 !important; color: #fff !important; border:none !important;"><div class="d-flex justify-content-center align-items-center"><ion-icon name="eye-outline" class="mr-2"></ion-icon> {{$tvShow->views}}</div></a>
                     <a href="#" class="btn btn-tab-movie rounded-pill" style="background: #555 !important; color: #fff !important; border:none !important;"><div class="d-flex justify-content-center align-items-center"><ion-icon name="share-social-outline" class="mr-2"></ion-icon> 0 Shares</div></a>
-                    <a href="#" class="btn btn-tab-movie rounded-pill" style="background: #555 !important; color: #fff !important; border:none !important;"><div class="d-flex justify-content-center align-items-center"><ion-icon name="share-social-outline" class="mr-2"></ion-icon> 0 Downloads</div></a>
+                    <a href="#" class="btn btn-tab-movie rounded-pill" style="background: #555 !important; color: #fff !important; border:none !important;"><div class="d-flex justify-content-center align-items-center"><ion-icon name="arrow-down-outline" class="mr-2"></ion-icon> 0 Downloads</div></a>
                 </div>
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="card-header " data-background-color="green">
@@ -38,9 +38,9 @@
                 </div>
                 <div class="tab-moivie">
                     <a href="#" class="btn btn-tab-movie d-flex justify-content-center align-items-center"><ion-icon name="add-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Edit</a>
-                    <a href="/movie/{{$movie->slug}}/source" class="btn btn-tab-movie-active d-flex justify-content-center align-items-center"><ion-icon name="folder-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Sources</a>
-                    <a href="/movie/{{$movie->slug}}/cast" class="btn btn-tab-movie d-flex justify-content-center align-items-center"><ion-icon name="people-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Cast</a>
-                    <a href="/movie/{{$movie->slug}}/trailer" class="btn btn-tab-movie d-flex justify-content-center align-items-center"><ion-icon name="play-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Trailer</a>
+                    <a href="/tvShow/{{$tvShow->slug}}/season" class="btn btn-tab-movie-active d-flex justify-content-center align-items-center"><ion-icon name="library-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Season</a>
+                    <a href="/tvShow/{{$tvShow->slug}}/cast" class="btn btn-tab-movie d-flex justify-content-center align-items-center"><ion-icon name="people-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Cast</a>
+                    <a href="/tvShow/{{$tvShow->slug}}/trailer" class="btn btn-tab-movie d-flex justify-content-center align-items-center"><ion-icon name="play-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Trailer</a>
                     <a href="#" class="btn btn-tab-movie d-flex justify-content-center align-items-center"><ion-icon name="document-text-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Comments</a>
                     <a href="#" class="btn btn-tab-movie d-flex justify-content-center align-items-center"><ion-icon name="star-half-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Ratings</a>
                 </div>
@@ -48,22 +48,22 @@
             <div class="card">
                 <div class="card-header d-flex align-items-center justify-content-start">
                     <ion-icon name="videocam-outline" style="font-size: 32px;"></ion-icon>
-                    <div class="font-weight-bold ml-2" style="font-size: 32px;">Edit Source "{{$source->title}}"</div>
+                    <div class="font-weight-bold ml-2" style="font-size: 32px;">New Source Of "{{$tvShow->title}}"</div>
                 </div>
                 <div class="card-body">
-                    <form action="/movie/{{$movie->id}}}/source/{{$source->id}}" method="POST" enctype='multipart/form-data'>
+                    <form action="/tvShow/{{$tvShow->slug}}/season/{{$season->id}}/episode/{{$episode->id}}/source" method="POST" enctype='multipart/form-data'>
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control" id="movie_id" name="movie_id" value="{{$movie->id}}" required hidden>
+                                <input type="text" class="form-control" id="movie_id" name="movie_id" value="{{$tvShow->id}}" required hidden>
 
                                 <div class="form-group">
                                     <label for="title">Source Title</label>
-                                    <input type="text" class="form-control" id="title" name="title" value="{{$source->title}}" required>
+                                    <input type="text" class="form-control" id="title" name="title" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="quality">Source Quality</label>
-                                    <input class="form-control" id="quality" name="quality" value="{{$source->quality}}" required>
+                                    <input class="form-control" id="quality" name="quality" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="type">Source Type</label>
@@ -79,11 +79,11 @@
 
                                 <div class="form-group">
                                     <label for="source_url">Source URL</label>
-                                    <input type="text" class="form-control" id="source_url" name="source_url" required value="{{$source->url}}">
+                                    <input type="text" class="form-control" id="source_url" name="source_url" required>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary mt-4">Submit</button>
-                                <a href="/movie/{{$movie->id}}}/source" class="btn btn-secondary  mt-4">Cancel</a>
+                                <a href="/tvShow/{{$tvShow->slug}}/season/{{$season->id}}/episode/{{$episode->id}}/source" class="btn btn-secondary  mt-4">Cancel</a>
                             </div>
                         </div>
                     </form>
@@ -107,7 +107,7 @@
                                 Resumable not supported
                             </div>
                             <div id="upload-container" class="text-center" >
-                                <button id="resumable-browse" class="btn btn-primary" data-url="{{ url('/movie/source/upload')}}">Brows File</button>
+                                <button id="resumable-browse" class="btn btn-primary" data-url="{{ url('tvShow/source/upload')}}">Brows File</button>
                                 <div class="progress mt-3" style="height: 25px">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%; height: 100%">75%</div>
                                 </div>
@@ -195,7 +195,6 @@
         }
 
         $(document).ready(function(){
-            $("#type option[value='{{$source->type}}']").attr('selected', 'selected');
             let btnUploadFile = $('#btn-upload-file');
             btnUploadFile.hide();
             let typeSelect = $('#type');

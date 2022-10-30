@@ -28,7 +28,7 @@
 
         <div class="container">
             <div class="row">
-                <a href="/movie" class="col-3 text-decoration-none">
+                <a href="/tvShow" class="col-3 text-decoration-none">
                     <div class="card m-2 bg-primary p-2">
                         <div class="card-body d-flex justify-content-center align-content-center text-white">
                             <ion-icon name="refresh-outline" style="font-size: 32px;"></ion-icon>
@@ -201,7 +201,7 @@
             var dataHtml = ``;
             var pagination_news_posts = document.getElementById('pagination-news-posts');
             $.ajax({
-                url: "http://localhost:8000/" + "movie/search",
+                url: "http://localhost:8000/" + "tvShow/search",
                 method: "POST",
                 data: {
                     keyword: keyword,

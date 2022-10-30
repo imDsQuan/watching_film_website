@@ -3,17 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\UploadImageToS3;
+use App\Jobs\UploadVideoToS3;
 use App\Repositories\ActorRepository;
+use App\Repositories\EpisodeRepository;
 use App\Repositories\GenreRepository;
 use App\Repositories\MediaRepository;
 use App\Repositories\PosterGenresRepository;
 use App\Repositories\PosterRepository;
 use App\Repositories\RoleRepository;
+use App\Repositories\SeasonRepository;
 use App\Repositories\SourceRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
+use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
+use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
+use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 
 class TvShowController extends Controller
 {
@@ -29,6 +36,8 @@ class TvShowController extends Controller
     private $sourceRepo;
     private $actorRepo;
     private $roleRepo;
+    private $seasonRepo;
+    private $episodeRepo;
 
     public function __construct(GenreRepository $genreRepo,
                                 MediaRepository $mediaRepo,
@@ -36,7 +45,9 @@ class TvShowController extends Controller
                                 PosterGenresRepository $posterGenresRepo,
                                 SourceRepository $sourceRepo,
                                 ActorRepository $actorRepo,
-                                RoleRepository $roleRepo)
+                                RoleRepository $roleRepo,
+                                SeasonRepository $seasonRepo,
+                                EpisodeRepository $episodeRepo)
     {
         $this->genreRepo = $genreRepo;
         $this->mediaRepo = $mediaRepo;
@@ -45,6 +56,8 @@ class TvShowController extends Controller
         $this->sourceRepo = $sourceRepo;
         $this->actorRepo = $actorRepo;
         $this->roleRepo = $roleRepo;
+        $this->seasonRepo = $seasonRepo;
+        $this->episodeRepo = $episodeRepo;
     }
 
     public function index()
@@ -84,7 +97,7 @@ class TvShowController extends Controller
             $thumbnail = $this->getMediaCreated($request, 'file-thumbnail');
         }
 
-        if ($request->hasFile('file-thumbnail')) {
+        if ($request->hasFile('file-cover')) {
             $cover = $this->getMediaCreated($request, 'file-cover');
         }
 
@@ -381,9 +394,9 @@ class TvShowController extends Controller
 
     public function upCast($slug, $id)
     {
-        $movie = $this->posterRepo->getMovieBySlug($slug);
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
 
-        $listRole = $this->roleRepo->getByPosterId($movie->id)->toArray();
+        $listRole = $this->roleRepo->getByPosterId($tvShow->id)->toArray();
         $roleUp = $this->roleRepo->find($id);
         $position = $roleUp->position;
 
@@ -399,17 +412,18 @@ class TvShowController extends Controller
             }
         }
 
-        return redirect('/movie/'.$movie->slug.'/cast');
+        return redirect('/tvShow/'.$tvShow->slug.'/cast');
     }
 
     public function downCast($slug, $id)
     {
-        $movie = $this->posterRepo->getMovieBySlug($slug);
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
 
-        $listRole = $this->roleRepo->getByPosterId($movie->id)->toArray();
+        $listRole = $this->roleRepo->getByPosterId($tvShow->id)->toArray();
         $roleDown = $this->roleRepo->find($id);
         $position = $roleDown->position;
 
+//
         $maxPosition = $this->roleRepo->maxPosition();
 
         foreach ($listRole as $role) {
@@ -424,7 +438,7 @@ class TvShowController extends Controller
             }
         }
 
-        return redirect('/movie/'.$movie->slug.'/cast');
+        return redirect('/tvShow/'.$tvShow->slug.'/cast');
     }
 
     function getEmbedUrl($url) {
@@ -478,11 +492,405 @@ class TvShowController extends Controller
     {
         $tvShow = $this->posterRepo->getTvShowBySlug($slug);
 
+        $listSeason = $this->seasonRepo->getAll();
+
+        foreach($listSeason as $season) {
+            $season->listEpisode = $this->episodeRepo->getEpisodeBySeasonId($season->id);
+        }
+
         return view('pages.tvShow.season.index', [
-           'title' => 'Edit Season',
-           'tvShow' => $tvShow,
+            'title' => 'Edit Season',
+            'tvShow' => $tvShow,
+            'listSeason' => $listSeason,
         ]);
     }
 
+    public function storeSeason(Request $request, $slug) {
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+
+        $this->seasonRepo->create([
+           'poster_id' => $tvShow->id,
+           'title' => $request->title,
+           'position' => $this->seasonRepo->maxPosition() + 1,
+        ]);
+
+        return redirect('/tvShow/'.$tvShow->slug.'/season');
+    }
+
+    public function editSeason($slug, $seasonId)
+    {
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+        $season = $this->seasonRepo->find($seasonId);
+
+        return view('pages.tvShow.season.edit', [
+            'title' => 'Edit Season',
+            'tvShow' => $tvShow,
+            'season' => $season,
+        ]);
+
+    }
+
+    public function updateSeason(Request $request, $slug, $seasonId)
+    {
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+
+        $this->seasonRepo->update($seasonId, [
+            'title' => $request->title,
+        ]);
+
+        return redirect('/tvShow/'.$tvShow->slug.'/season');
+
+
+    }
+
+    public function deleteSeason(Request $request, $slug, $seasonId)
+    {
+//        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+        $this->seasonRepo->delete($seasonId);
+        return $this->responseData();
+    }
+
+    public function upSeason($slug, $seasonId)
+    {
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+        $listSeason = $this->seasonRepo->getAll()->toArray();
+        $seasonUp = $this->seasonRepo->find($seasonId);
+        $position = $seasonUp->position;
+
+        foreach ($listSeason as $season) {
+            if ($season['position'] == ($position - 1) && $position > 1 ){
+                $this->seasonRepo->update($season['id'], [
+                    'position' => $position,
+                ]);
+                $this->seasonRepo->update($seasonId, [
+                    'position' => $position - 1,
+                ]);
+                break;
+            }
+        }
+        return redirect('/tvShow/'.$tvShow->slug.'/season');
+
+    }
+
+    public function downSeason($slug, $seasonId){
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+
+        $listSeason = $this->seasonRepo->getAll()->toArray();
+        $seasonDown = $this->seasonRepo->find($seasonId);
+        $position = $seasonDown->position;
+
+        $maxPosition = $this->seasonRepo->maxPosition();
+
+        foreach ($listSeason as $season) {
+            if ($season['position'] == ($position + 1) && $position < $maxPosition ){
+                $this->seasonRepo->update($season['id'], [
+                    'position' => $position,
+                ]);
+                $this->seasonRepo->update($seasonId, [
+                    'position' => $position + 1,
+                ]);
+                break;
+            }
+        }
+
+        return redirect('/tvShow/'.$tvShow->slug.'/season');
+    }
+
+    public function createEpisode($slug, $seasonId)
+    {
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+
+        $season = $this->seasonRepo->find($seasonId);
+
+        return view('pages.tvShow.season.episode.create', [
+            'title' => 'Create Season',
+            'tvShow' => $tvShow,
+            'season' => $season,
+        ]);
+
+    }
+
+    public function storeEpisode(Request $request, $slug, $seasonId)
+    {
+        $cover = null;
+
+        if ($request->hasFile('file-cover')) {
+            $cover = $this->getMediaCreated($request, 'file-cover');
+        }
+
+        $this->episodeRepo->create([
+            'season_id' => $seasonId,
+            'media_id' => $cover['id'] ?? '',
+            'title' => $request->title,
+            'description' => $request->description,
+            'duration' => $request->duration,
+            'enabled' => $request->enable ?? 0,
+            'position' => $this->episodeRepo->maxPosition() + 1,
+            'views' => 0,
+            'slug' => Str::slug($request->title).Carbon::now()->timestamp,
+        ]);
+
+        return redirect('/tvShow/'.$slug.'/season');
+
+
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->keyword;
+        $listTvShow = $this->posterRepo->getTvShowByKeyword($keyword)->toArray();
+        $total = count($listTvShow);
+        foreach ($listTvShow as &$tvShow) {
+            $media = $this->mediaRepo->find($tvShow->poster_id);
+            $tvShow->img_thumbnail = $media['url'];
+        }
+
+        $this->message = 'Lấy bài viết thành công';
+        $this->status  = 'success';
+
+        $data          = [
+            'data'  => $listTvShow,
+            'total' => $total,
+        ];
+        return $this->responseData($data);
+    }
+
+    public function editEpisode($slug, $seasonId, $episodeId) {
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+
+        $season = $this->seasonRepo->find($seasonId);
+
+        $episode = $this->episodeRepo->find($episodeId);
+
+        $media = $this->mediaRepo->find($episode->media_id);
+
+        $episode->img_url = $media->url;
+
+        return view('pages.tvShow.season.episode.edit', [
+            'title' => 'Edit Episode',
+            'tvShow' => $tvShow,
+            'season' => $season,
+            'episode' => $episode,
+        ]);
+    }
+
+    public function updateEpisode(Request $request, $slug, $seasonId, $episodeId){
+        $cover = null;
+
+        $episode = $this->episodeRepo->find($episodeId);
+
+        if ($request->hasFile('file-cover')) {
+            $cover = $this->getMediaCreated($request, 'file-cover');
+        }
+
+        $this->episodeRepo->update($episodeId, [
+            'season_id' => $seasonId,
+            'media_id' => $cover['id'] ?? $episode->media_id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'duration' => $request->duration,
+            'enabled' => $request->enable ?? 0,
+        ]);
+
+        return redirect('/tvShow/'.$slug.'/season');
+    }
+
+    public function deleteEpisode($slug, $seasonId, $episodeId)
+    {
+        $this->episodeRepo->delete($episodeId);
+        return $this->responseData();
+    }
+
+    public function upEpisode($slug, $seasonId, $episodeId)
+    {
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+        $listEpisode = $this->episodeRepo->getAll()->toArray();
+        $episodeUp = $this->episodeRepo->find($episodeId);
+        $position = $episodeUp->position;
+
+        foreach ($listEpisode as $season) {
+            if ($season['position'] == ($position - 1) && $position > 1 ){
+                $this->episodeRepo->update($season['id'], [
+                    'position' => $position,
+                ]);
+                $this->episodeRepo->update($episodeId, [
+                    'position' => $position - 1,
+                ]);
+                break;
+            }
+        }
+        return redirect('/tvShow/'.$tvShow->slug.'/season');
+    }
+
+    public function downEpisode($slug, $seasonId, $episodeId)
+    {
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+
+        $listEpisode = $this->episodeRepo->getAll()->toArray();
+        $seasonDown = $this->episodeRepo->find($episodeId);
+        $position = $seasonDown->position;
+
+        $maxPosition = $this->episodeRepo->maxPosition();
+
+        foreach ($listEpisode as $episode) {
+            if ($episode['position'] == ($position + 1) && $position < $maxPosition ){
+                $this->episodeRepo->update($episode['id'], [
+                    'position' => $position,
+                ]);
+                $this->episodeRepo->update($episodeId, [
+                    'position' => $position + 1,
+                ]);
+                break;
+            }
+        }
+
+        return redirect('/tvShow/'.$tvShow->slug.'/season');
+    }
+
+    public function indexSource($slug, $seasonId, $episodeId)
+    {
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+        $season = $this->seasonRepo->find($seasonId);
+        $episode = $this->episodeRepo->find($episodeId);
+
+        $listSource = $this->sourceRepo->getSourceByEpisodeId($episode->id)->toArray();
+
+
+        return view('pages.tvShow.season.episode.source.index', [
+            'title' => 'Edit Source',
+            'tvShow' => $tvShow,
+            'season' => $season,
+            'episode' => $episode,
+            'listSource' => $listSource,
+        ]);
+
+    }
+
+    public function createSource($slug, $seasonId, $episodeId)
+    {
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+        $season = $this->seasonRepo->find($seasonId);
+        $episode = $this->episodeRepo->find($episodeId);
+
+
+        return view('pages.tvShow.season.episode.source.create', [
+            'title' => 'Create Source '.$episode->title,
+            'tvShow' => $tvShow,
+            'season' => $season,
+            'episode' => $episode,
+        ]);
+    }
+
+    public function uploadSourceFile(Request $request)
+    {
+        $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
+
+        if (!$receiver->isUploaded()) {
+            // file not uploaded
+        }
+
+        $fileReceived = $receiver->receive(); // receive file
+        if ($fileReceived->isFinished()) { // file uploading is complete / all chunks are uploaded
+            $file = $fileReceived->getFile(); // get file
+            $extension = $file->getClientOriginalExtension();
+            $fileName = str_replace('.'.$extension, '', $file->getClientOriginalName()); //file name without extenstion
+            $fileName= str_replace(' ', '_', $fileName);
+            $fileName .= '_' . md5(time()) . '.' . $extension; // a unique file name
+
+            $disk = Storage::disk('local');
+            $path = $disk->putFileAs('videos', $file, $fileName);
+
+            // delete chunked file
+
+            UploadVideoToS3::dispatch($path, $fileName)->delay(Carbon::now()->addSecond(10));
+
+            unlink($file->getPathname());
+            return [
+                'path' => env('AWS_URL').'/'.$path,
+                'filename' => storage_path('app/'.$path),
+//                'abc' => storage_path('app/' . $path).$fileName,
+            ];
+        }
+
+        // otherwise return percentage informatoin
+        $handler = $fileReceived->handler();
+
+
+        return [
+            'done' => $handler->getPercentageDone(),
+            'status' => true
+        ];
+    }
+
+    public function storeSource(Request $request, $slug, $seasonId, $episodeId)
+    {
+//        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+//        $season = $this->seasonRepo->find($seasonId);
+//        $episode = $this->episodeRepo->find($episodeId);
+
+        $source_url = null;
+
+        if ($request->type == 'Youtube') {
+            $source_url = $this->getEmbedUrl($request->source_url);
+        }
+
+        $source = array(
+            'title' => $request->title,
+            'quality' => $request->quality,
+            'type' => $request->type,
+            'url' => $source_url ?? $request->source_url,
+            'episode_id' => $episodeId,
+        );
+
+        $this->sourceRepo->create($source);
+
+        return redirect('tvShow/'.$slug.'/season/'.$seasonId.'/episode/'.$episodeId.'/source');
+    }
+
+    public function editSource($slug, $seasonId, $episodeId, $sourceId)
+    {
+        $tvShow = $this->posterRepo->getTvShowBySlug($slug);
+        $season = $this->seasonRepo->find($seasonId);
+        $episode = $this->episodeRepo->find($episodeId);
+
+        $source = $this->sourceRepo->find($sourceId);
+
+        return view('pages.tvShow.season.episode.source.edit',
+            [
+                'title' => 'Edit Source',
+                'tvShow' => $tvShow,
+                'source' => $source,
+                'season' => $season,
+                'episode' => $episode,
+            ]);
+    }
+
+    public function updateSource(Request $request, $slug, $seasonId, $episodeId, $sourceId)
+    {
+        $source_url = null;
+
+        if ($request->type == 'Youtube') {
+            $source_url = $this->getEmbedUrl($request->source_url);
+        }
+
+        $source = array(
+            'title' => $request->title,
+            'quality' => $request->quality,
+            'type' => $request->type,
+            'url' => $source_url ?? $request->source_url,
+            'episode_id' => $episodeId,
+        );
+
+        $this->sourceRepo->update($sourceId, $source);
+
+        return redirect('/tvShow/'.$slug.'/season/'.$seasonId.'/episode/'.$episodeId.'/source');
+
+    }
+
+    public function destroySource($slug, $seasonId, $episodeId, $sourceId)
+    {
+        $this->sourceRepo->delete($sourceId);
+        return $this->responseData();
+
+    }
 
 }

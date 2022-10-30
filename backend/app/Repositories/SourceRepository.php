@@ -17,4 +17,9 @@ class SourceRepository extends EloquentRepository
     {
         return DB::table('tbl_source')->where('poster_id', '=', $posterId)->get();
     }
+
+    public function getSourceByEpisodeId($posterId)
+    {
+        return DB::table('tbl_source')->where('episode_id', '=', $posterId)->get();
+    }
 }

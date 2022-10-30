@@ -35,7 +35,7 @@ class ActorRepository extends EloquentRepository
                 ->join('tbl_role', 'tbl_actor.id', '=', 'tbl_role.actor_id')
                 ->where('tbl_role.poster_id', '=', $posterId)
                 ->select('tbl_actor.*', 'tbl_role.role', 'tbl_role.position', 'tbl_role.id as role_id')
-                ->orderBy('position', 'asc')
+                ->orderBy('tbl_role.position', 'asc')
                 ->get();
     }
 
