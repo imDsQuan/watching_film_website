@@ -681,4 +681,10 @@ class MovieController extends Controller
         $movie->trailer = $source['url'];
         return $movie;
     }
+
+    public function getGenresBySlug($slug)
+    {
+        $lstGenres = $this->posterRepo->getGenres($slug);
+        return $lstGenres;
+    }
 }

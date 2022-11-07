@@ -39,6 +39,7 @@ Route::group(['prefix' => 'actor'], function() {
 Route::group(['prefix' => 'movie'], function() {
     Route::get('/all', [MovieController::class, 'getAll']);
     Route::get('/getMovie', [MovieController::class, 'getMovie']);
+    Route::get('/{slug}/genres', [MovieController::class, 'getGenresBySlug']);
     Route::get('/{slug}', [MovieController::class, 'getBySlug']);
 
 });

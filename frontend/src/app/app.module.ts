@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import { HttpClientModule } from '@angular/common/http';
 import {HomeModule} from "./modules/home/home.module";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,6 +17,7 @@ import {HomeModule} from "./modules/home/home.module";
     AppRoutingModule,
     NgxPaginationModule,
     HomeModule,
+    NgbModule,
   ],
   providers: [],
   exports: [

@@ -42,6 +42,21 @@
     font-weight: 300;
   }
 
+  .genre-box {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .genre-box .genre {
+    padding: 8px 10px;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    margin-right: 10px;
+    margin-top: 24px;
+  }
+
 
 </style>
 <app-layout-site>
@@ -60,11 +75,39 @@
                   <span>{{movie?.duration}} m</span><i class="fas fa-circle"></i>
                   <span>{{movie?.imdb}}</span><i class="fab fa-imdb"></i>
                 </div>
+                <div class="genre-box">
+                  <span class="genre" *ngFor="let genre of lstGenres">{{genre?.title}}</span>
+                </div>
                 <p class="description">{{movie?.description}}</p>
+                <div class="feature-button">
+                  <button class="btn btn-watch-video mr-3" > Watch Now <i class="fas fa-play"></i></button>
+                  <button class="btn btn-watch-trailer" (click)="open(content)"> Watch Trailer <i class="fas fa-film"></i></button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label >Date of birth</label>
+                <div class="input-group">
+
+                  <button class="btn btn-outline-secondary bi bi-calendar3" type="button"></button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+          </div>
+        </ng-template>
+
       <div class="cast-container">
         <h3>Casts</h3>
       </div>

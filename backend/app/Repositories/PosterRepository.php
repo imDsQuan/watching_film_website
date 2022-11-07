@@ -96,5 +96,14 @@ class PosterRepository extends EloquentRepository
             ->get();
     }
 
+    public function getGenres($slug) {
+        return DB::table('tbl_poster')->join('tbl_poster_genres', 'tbl_poster_genres.poster_id', '=', 'tbl_poster.id')
+            ->join('tbl_genre', 'tbl_poster_genres.genre_id', '=', 'tbl_genre.id')
+            ->where('tbl_poster.slug', 'like', '%'.$slug.'%')
+            ->select('tbl_genre.*')
+            ->distinct()
+            ->get();
+    }
+
 
 }

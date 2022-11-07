@@ -5,13 +5,15 @@ import {MovieDetailComponent} from "./movie-detail/movie-detail.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'all',
     component: AllMovieComponent,
   },
   {
     path: ':slug',
     component: MovieDetailComponent,
   },
+
+
 
 
 ];
