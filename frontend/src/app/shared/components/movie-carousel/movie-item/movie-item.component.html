@@ -1,0 +1,8 @@
+<div class="movie-list-item">
+  <img class="movie-img" src="{{poster?.posterImg}}" alt="">
+  <div class="movie-info">
+    <h2 class="movie-title">{{poster?.title}} </h2>
+    <p class="movie-description">{{poster?.description}}</p>
+    <button [routerLink]="['/movie', poster?.slug]" class="btn btn-movie-item">Watch</button>
+  </div>
+</div>

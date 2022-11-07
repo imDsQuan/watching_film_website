@@ -89,6 +89,9 @@
             $.ajax({
                 url: "http://localhost:8000/" + "movie/get-movie",
                 method: "POST",
+                {{--headers: {--}}
+                {{--    'X-CSRF-TOKEN': {{ csrf_token() }}--}}
+                {{--},--}}
                 data: {
                     page: page,
                     limit: 20,

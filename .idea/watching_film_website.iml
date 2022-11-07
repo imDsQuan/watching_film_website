@@ -135,9 +135,12 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/aws/aws-crt-php" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/league/flysystem-aws-s3-v3" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/mtdowling/jmespath.php" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/predis/predis" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/pion/laravel-chunk-upload" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="@types/jquery" level="application" />
+    <orderEntry type="library" name="017eaf7e3f" level="application" />
   </component>
 </module>

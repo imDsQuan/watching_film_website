@@ -29,9 +29,45 @@
                 <div class="card-body">
                     <form action="/actor/update" method="POST" enctype='multipart/form-data'>
                         {{ csrf_field() }}
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="/actor" class="btn btn-secondary">Cancel</a>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="fileinput">
+                                    <a id="btn-select-thumbnail" class="btn btn-secondary btn-select">Select Image</a>
+                                    <img class="img-preview img-thumbnail" src="{{$actor->img_thumbnail}}" alt="">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input class="file-thumbnail" type="file" name="file-thumbnail" hidden >
+                                <input type="text" name="id" hidden value="{{$actor->id}}">
+                                <div class="form-group">
+                                    <label for="fullname">Full Name</label>
+                                    <input type="text" class="form-control" id="fullname" name="name" value="{{$actor->name}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="type">Type</label>
+                                    <select class="form-control" id="type" name="type">
+                                        <option>Actor</option>
+                                        <option>Actress</option>
+                                        <option>Director</option>
+                                        <option>Producer</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="born">Born</label>
+                                    <input type="text" class="form-control" id="born" name="born" required value="{{$actor->born}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="height">Height</label>
+                                    <input type="text" class="form-control" id="height" name="height" required value="{{$actor->height}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bio">Bio</label>
+                                    <textarea class="form-control" id="bio" rows="3" name="bio" required>{{$actor->bio}}</textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="/actor" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

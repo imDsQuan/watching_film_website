@@ -1,0 +1,547 @@
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css"; /* You can add global styles to this file, and also import other style files */
+:root {
+  --green: #4dbf00;
+  --white: #fff;
+  --black: #151515;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif ;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.d-none {
+  display: none;
+}
+
+body {
+  background-color: var(--black);
+}
+
+.navbar {
+  width: 100%;
+  height: 50px;
+  background-color: #000;
+  position: relative;
+  font-family: 'Sen', sans-serif ;
+}
+
+.navbar .navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 0 50px;
+  color: var(--white);
+  font-family: 'Sen', sans-serif;
+  position: relative;
+}
+
+.navbar .menu-list-toggle {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  background-color: #151515;
+}
+
+.menu-list-toggle .menu-list-item {
+  width: 100%;
+  padding: 10px 48px;
+  font-size: 18px;
+  color: var(--white);
+  list-style: none;
+}
+
+.menu-list-toggle .menu-list-item:last-child{
+  border-bottom: 1px solid #555;
+}
+
+.menu-list-toggle .menu-list-item:hover {
+  opacity: 0.7;
+}
+
+.menu-list-toggle .menu-list-item i {
+  margin-right: 10px;
+}
+
+.navbar .navbar-container .navbar-menu {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-menu .logo-container {
+  margin-right: 32px;
+}
+
+.navbar-menu .logo-container .logo {
+  font-size: 30px;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.navbar-menu .menu-container .menu-list {
+  display: flex;
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.navbar-menu .menu-container .menu-list .menu-list-item {
+  border-bottom: 1px solid transparent;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+.navbar-menu .menu-container .menu-list .menu-list-item:hover {
+  border-bottom: 1px solid var(--green);
+}
+
+
+.navbar-container .profile-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.navbar-container .profile-container::after{
+  position: absolute;
+  content: '';
+  width: 120px;
+  height: 16px;
+  bottom: -14px;
+  right: 0;
+  background-color: transparent;
+}
+
+.navbar-container .profile-container .profile-text-container {
+  margin: 0 20px;
+}
+
+.profile-text-container .profile-text{
+  margin-right: 10px;
+}
+
+.navbar-container .profile-container .profile-picture {
+  width: 32px;
+  border-radius: 50%;
+}
+
+.profile-container:hover > .profile-text-container .profile-menu {
+  display: block;
+}
+
+.profile-text-container .profile-menu {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 120px;
+  background-color: var(--black);
+  list-style: none;
+  border: 1px solid var(--white);
+  display: none;
+}
+
+.profile-text-container .profile-menu-item {
+  padding: 10px;
+}
+
+.profile-text-container .profile-menu-item:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.main {
+  color: var(--white);
+}
+
+.feature {
+  background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url('assets/images/Logo.png') no-repeat center center;
+  background-size: cover;
+  padding: 50px 150px;
+  height: 470px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature .feature-content {
+  width: 50%;
+}
+
+.feature .feature-content .title {
+  color: var(--white);
+  font-size: 64px;
+  margin-bottom: 30px;
+}
+
+.feature .feature-content .feature-desc {
+  color: var(--white);
+  width: 100%;
+  font-size: 16px;
+  line-height: 18px;
+  height: 54px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-bottom: 30px;
+}
+
+.feature .feature-content .feature-button a {
+  text-decoration: none;
+}
+
+.feature .feature-content .feature-button i {
+  margin: 0 8px;
+}
+
+.feature .feature-content .feature-button .btn-watch-video {
+  margin-right: 20px;
+}
+
+.feature .feature-content .feature-button .btn:hover{
+  scale: 1.1;
+  color: white;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.btn-watch-video {
+  border: 1px solid rgb(143, 29, 29);
+  background-color: rgb(143, 29, 29);
+  box-shadow: 0 0 5px 5px rgb(143, 29, 29, 0.3);
+
+}
+
+.btn-watch-trailer {
+  background-color: transparent;
+  border: 1px solid var(--white);
+}
+
+
+.feature .feature-img {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.feature .feature-img img{
+  width: 230px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.movie-list-container {
+  /* padding: 50px; */
+}
+
+.movie-list-container .movie-list-title {
+  padding-left: 40px;
+}
+
+.movie-list-container .movie-list-wrapper {
+  padding-left: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.movie-list-container .movie-list {
+  display: flex;
+  height: 300px;
+  align-items: center;
+  transform: translateX(0);
+  transition: all 0.5s ease-in-out;
+}
+
+.movie-list-item {
+  margin-right: 40px;
+  position: relative;
+}
+
+.movie-list-item .movie-img {
+  width: 270px;
+  height: 200px;
+  object-fit: cover;
+  transition: all 0.25s ease-in;
+  border-radius: 20px;
+}
+
+.movie-list-item .movie-info {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 20px;
+  padding: 30px;
+  opacity: 0;
+  transition: all 0.25s ease-in;
+}
+
+.movie-info .movie-title {
+  font-size: 24px;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.movie-info .movie-description {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  width: 100%;
+  height: 48px;
+  margin-bottom: 10px;
+  /* opacity: 0; */
+}
+
+.movie-info .btn-movie-item {
+  background-color: #4dbf00;
+}
+
+.movie-list-item:hover .movie-img{
+  transform: scale(1.2);
+}
+
+.movie-list-item:hover .movie-info {
+  opacity: 0.9;
+}
+
+.movie-list-item:hover .movie-info .movie-title,
+.movie-list-item:hover .movie-info .movie-description,
+.movie-list-item:hover .movie-info .btn-movie-item {
+  opacity: 1;
+}
+
+.movie-list-wrapper .arrow {
+  font-size: 120px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: lightgray;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.movie-list-wrapper .arrow-left {
+  left: 0;
+}
+
+.movie-list-wrapper .arrow-right {
+  right: 0;
+}
+
+/* Actor */
+
+.actor-list-container {
+  padding: 40px;
+}
+
+.actor-list-container .actor-list-title {
+  margin-bottom: 30px;
+}
+
+.actor-list-container .actor-list-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.actor-list-container .actor-list {
+  display: flex;
+  align-items: center;
+  transform: translateX(0);
+  transition: all 0.5s ease-in-out;
+  padding: 10px;
+}
+
+.actor-list .actor-list-item {
+  margin-right: 40px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.actor-list-item:hover {
+  scale: 1.1;
+}
+
+.actor-list-item .actor-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  transition: all 0.25s ease-in;
+  border-radius: 50%;
+}
+
+.actor-list-item .title {
+  font-size: 18px;
+  margin-top: 10px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.actor-list-item .role {
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+  width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.actor-list-wrapper .arrow {
+  font-size: 80px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: lightgray;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.actor-list-wrapper .arrow-right {
+  right: 0;
+}
+
+.actor-list-wrapper .arrow-left {
+  left: 0;
+  width: max-content;
+}
+
+.menu-toggle {
+  font-size: 24px;
+  margin-right: 16px;
+  display: none !important;
+}
+
+.search-box {
+  /*display: flex;*/
+  position: absolute;
+  top: 50%;
+  right: 250px;
+  transform: translateY(-50%);
+  background-color: #151515;
+  height: 40px;
+  border-radius: 40px;
+  border: 1px solid var(--green);
+}
+
+.search-box:hover > .search-txt {
+  width: 240px;
+  padding: 0 10px;
+}
+
+.search-txt:focus {
+  width: 240px;
+  padding: 0 10px;
+}
+
+.search-box .search-btn {
+  color: var(--green);
+  float: right;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: #151515;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-box .search-txt {
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: white;
+  font-size: 14px;
+  line-height: 40px;
+  width: 0px;
+  transition: 0.4s;
+}
+
+
+.ngx-pagination .current {
+  background: var(--green) !important;
+  border-radius: 50%;
+}
+
+.ngx-pagination a:hover, .ngx-pagination button:hover {
+  background: var(--green) !important;
+  border-radius: 20px;
+}
+
+@media (max-width: 1023px) {
+  .feature {
+    padding: 50px;
+  }
+
+
+  .feature .feature-content .title {
+    font-size: 54px;
+  }
+}
+
+@media (max-width: 765px) {
+  .menu-container {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline !important;
+  }
+
+  .feature {
+    padding: 50px;
+  }
+
+  .feature .feature-content {
+    width: 100%;
+  }
+
+  .feature .feature-img {
+    display: none;
+  }
+}
+
+
+
+
+

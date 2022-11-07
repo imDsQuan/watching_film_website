@@ -1,0 +1,11 @@
+
+
+<div class="actor-list-wrapper">
+  <div #castList class="actor-list">
+    <app-cast-item class="actor-list-item" *ngFor="let cast of lstCast" [cast]="cast" >
+    </app-cast-item>
+  </div>
+  <i class="fas fa-chevron-right arrow arrow-right" (click)="next()" ></i>
+  <i *ngIf="activeLeft" class="fas fa-chevron-left arrow arrow-left" (click)="pre()"></i>
+
+</div>

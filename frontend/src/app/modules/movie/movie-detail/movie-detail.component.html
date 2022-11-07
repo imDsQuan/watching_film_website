@@ -1,0 +1,73 @@
+<style>
+  .movie-detail-container {
+    height: 548px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url("Logo.png") no-repeat center center;
+    background-size: cover;
+    padding: 50px 0;
+  }
+
+  .movie-detail-container .img-box img{
+    border-radius: 20px;
+  }
+
+  .movie-detail .title {
+    font-size: 64px;
+    font-weight: 600;
+    font-family: 'Sen', sans-serif;
+  }
+
+  .movie-detail .information {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 18px;
+  }
+
+  .movie-detail .information span {
+    padding: 0 12px;
+  }
+
+  .movie-detail .information i {
+    font-size: 8px;
+  }
+
+  .movie-detail .information i.fa-imdb {
+    font-size: 26px;
+  }
+
+  .movie-detail .description {
+    margin-top: 32px;
+    text-align: justify;
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+
+</style>
+<app-layout-site>
+  <router-outlet>
+      <div class="movie-detail-container" [ngStyle]="{'background-image': 'linear-gradient(to bottom, rgba(0,0,0,0), #151515),url(' + movie?.coverImg +')' }">
+        <div class="container">
+          <div class="row flex-center">
+            <div class="col-4 img-box">
+              <img src="{{movie?.posterImg}}" class="img-fluid" alt="">
+            </div>
+            <div class="col-8">
+              <div class="movie-detail">
+                <h1 class="title">{{movie?.title}}</h1>
+                <div class="information">
+                  <span>{{movie?.year}}</span><i class="fas fa-circle"></i>
+                  <span>{{movie?.duration}} m</span><i class="fas fa-circle"></i>
+                  <span>{{movie?.imdb}}</span><i class="fab fa-imdb"></i>
+                </div>
+                <p class="description">{{movie?.description}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="cast-container">
+        <h3>Casts</h3>
+      </div>
+    </div>
+  </router-outlet>
+</app-layout-site>

@@ -143,6 +143,7 @@ class ActorController extends Controller
      */
     public function update(Request $request)
     {
+//        dd($request);
         if ($request->hasFile('file-thumbnail')) {
 
             $mediaCreated = $this->getMediaCreated($request);
@@ -233,6 +234,16 @@ class ActorController extends Controller
             'total' => $total,
         ];
         return $this->responseData($data);
+    }
+
+    public function getPopular()
+    {
+        $lstActor = $this->actorRepo->getPopular();
+        foreach ($lstActor as &$actor) {
+            $media = $this->mediaRepo->find($actor->media_id);
+            $actor->img = $media['url'];
+        }
+        return $lstActor;
     }
 
 }

@@ -39,4 +39,10 @@ class ActorRepository extends EloquentRepository
                 ->get();
     }
 
+    public function getPopular()
+    {
+        return DB::table('tbl_actor')->take(20)->get();
+
+    }
+
 }

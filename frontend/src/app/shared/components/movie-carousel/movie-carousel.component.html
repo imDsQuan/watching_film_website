@@ -1,0 +1,7 @@
+<div class="movie-list-wrapper">
+  <div #movieList class="movie-list">
+    <app-movie-item  *ngFor="let post of lstPoster" [poster]="post"></app-movie-item>
+  </div>
+  <i class="fas fa-chevron-right arrow arrow-right" (click)="next()" ></i>
+  <i *ngIf="activeLeft" class="fas fa-chevron-left arrow arrow-left" (click)="pre()"></i>
+</div>

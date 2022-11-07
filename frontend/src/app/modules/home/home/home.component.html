@@ -1,0 +1,59 @@
+<app-layout-site>
+  <router-outlet>
+    <div class="feature"  [ngStyle]="{'background-image': 'linear-gradient(to bottom, rgba(0,0,0,0), #151515),url(' + feature?.coverImg +')' }">
+      <div class="feature-content">
+        <h2 class="title">{{feature?.title}}</h2>
+        <p class="feature-desc">{{feature?.description}}</p>
+
+        <div class="feature-button">
+          <a href="#"><button class="btn btn-watch-video"> Watch Now <i class="fas fa-play"></i></button> </a>
+          <a href="#"><button class="btn btn-watch-trailer"> Watch Trailer <i class="fas fa-film"></i></button> </a>
+        </div>
+      </div>
+
+      <div class="feature-img">
+        <img src="{{feature?.posterImg}}" alt="">
+      </div>
+    </div>
+    <div class="actor-list-container">
+      <h1 class="actor-list-title">Popular Actor</h1>
+        <app-actor-carousel [lstActor]="lstActor"></app-actor-carousel>
+    </div>
+
+    <div class="movie-list-container">
+      <h1 class="movie-list-title">NEW RELEASE</h1>
+      <div class="movie-list-wrapper">
+        <app-movie-carousel [lstPoster]="lstPoster" ></app-movie-carousel>
+      </div>
+    </div>
+
+    <div class="movie-list-container">
+      <h1 class="movie-list-title">Adventure</h1>
+      <div class="movie-list-wrapper">
+        <app-movie-carousel [lstPoster]="lstPosterAdventure" ></app-movie-carousel>
+      </div>
+    </div>
+
+    <div class="movie-list-container">
+      <h1 class="movie-list-title">Action</h1>
+      <div class="movie-list-wrapper">
+        <app-movie-carousel [lstPoster]="lstPosterAction" ></app-movie-carousel>
+      </div>
+    </div>
+
+    <div class="movie-list-container">
+      <h1 class="movie-list-title">Horror</h1>
+      <div class="movie-list-wrapper">
+        <app-movie-carousel [lstPoster]="lstPosterHorror" ></app-movie-carousel>
+      </div>
+    </div>
+
+    <div class="movie-list-container">
+      <h1 class="movie-list-title">Crime</h1>
+      <div class="movie-list-wrapper">
+        <app-movie-carousel [lstPoster]="lstPosterCrime" ></app-movie-carousel>
+      </div>
+    </div>
+
+  </router-outlet>
+</app-layout-site>

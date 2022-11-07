@@ -413,7 +413,7 @@ class MovieController extends Controller
 
 
     public function getMovie(Request $request){
-        $limit     = $request->input('limit', 1);
+        $limit     = $request->input('limit', 20);
         $page      = $request->input('page', 1);
         $offset = ($page - 1) * $limit;
 
@@ -430,6 +430,7 @@ class MovieController extends Controller
         $data          = [
             'data'  => $listMovie,
             'total' => $total,
+            'page'  => $page,
         ];
         return $this->responseData($data);
     }
@@ -655,5 +656,29 @@ class MovieController extends Controller
         }
 
         return redirect('/movie/'.$movie->slug.'/cast');
+    }
+
+    public function getAll(){
+        $listMovie = $this->posterRepo->getAllMovie();
+        foreach ($listMovie as &$movie) {
+            $mediaCover = $this->mediaRepo->find($movie->cover_id);
+            $mediaPoster = $this->mediaRepo->find($movie->poster_id);
+            $movie->coverImg = $mediaCover['url'];
+            $movie->posterImg = $mediaPoster['url'];
+        }
+
+        return $listMovie;
+    }
+
+    public function getBySlug($slug)
+    {
+        $movie = $this->posterRepo->getMovieBySlug($slug);
+        $mediaCover = $this->mediaRepo->find($movie->cover_id);
+        $mediaPoster = $this->mediaRepo->find($movie->poster_id);
+        $source = $this->mediaRepo->find($movie->trailer_id);
+        $movie->coverImg = $mediaCover['url'];
+        $movie->posterImg = $mediaPoster['url'];
+        $movie->trailer = $source['url'];
+        return $movie;
     }
 }

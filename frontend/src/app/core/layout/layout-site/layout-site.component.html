@@ -1,0 +1,48 @@
+
+<div class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-menu">
+      <i id="btn-toggle-menu" class="fas fa-bars menu-toggle" (click)="showNav()"></i>
+      <div class="logo-container">
+        <h1 class="logo">Shining</h1>
+      </div>
+      <div class="menu-container">
+        <ul class="menu-list">
+          <li  class="menu-list-item">Home</li>
+          <li routerLink="/movie/all" class="menu-list-item">Movie</li>
+          <li class="menu-list-item">TV Show</li>
+          <li class="menu-list-item">My List</li>
+        </ul>
+      </div>
+    </div>
+    <div class="profile-container">
+      <img class="profile-picture" src="assets/images/profile.jpg" alt="">
+      <div class="profile-text-container">
+        <span class="profile-text">Profile</span>
+        <i class="fas fa-caret-down"></i>
+        <ul class="profile-menu">
+          <li class="profile-menu-item"><i class="fas fa-user"></i> Profile</li>
+          <li class="profile-menu-item"><i class="fas fa-sign-out-alt"></i> Sign Out</li>
+        </ul>
+      </div>
+    </div>
+    <div class="search-box">
+      <input class="search-txt" type="text" name="" placeholder="Type to search">
+      <a class="search-btn" href=""><i class="fas fa-search"></i></a>
+    </div>
+  </div>
+  <ul *ngIf="active" id="menu-list-toggle" class="menu-list-toggle">
+    <li class="menu-list-item"><i class="fas fa-home"></i> Home</li>
+    <li class="menu-list-item"><i class="fas fa-video"></i> Movie</li>
+    <li class="menu-list-item"><i class="fas fa-tv"></i> TV Show</li>
+    <li class="menu-list-item"><i class="fas fa-folder"></i> My List</li>
+  </ul>
+</div>
+
+<div class="main">
+  <ng-content select="router-outlet"></ng-content>
+</div>
+
+
+
+
