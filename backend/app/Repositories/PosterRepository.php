@@ -105,5 +105,56 @@ class PosterRepository extends EloquentRepository
             ->get();
     }
 
+    public function getCast($slug)
+    {
+        return DB::table('tbl_actor')
+            ->join('tbl_media', 'tbl_media.id', '=', 'tbl_actor.media_id')
+            ->join('tbl_role', 'tbl_actor.id', '=', 'tbl_role.actor_id')
+            ->join('tbl_poster', 'tbl_poster.id', '=', 'tbl_role.poster_id')
+            ->where('tbl_poster.slug', 'like', '%'.$slug.'%')
+            ->select('tbl_actor.*', 'tbl_role.role', 'tbl_role.position', 'tbl_role.id as role_id', 'tbl_media.url as img')
+            ->orderBy('tbl_role.position')
+            ->get();
+    }
+
+    public function getSimilarMovieBySlug($slug)
+    {
+        return DB::table('tbl_genre')->leftJoin('tbl_poster_genres', 'tbl_genre.id', '=', 'tbl_poster_genres.genre_id')
+            ->leftJoin('tbl_poster', 'tbl_poster_genres.poster_id', '=', 'tbl_poster.id')
+            ->select('tbl_poster.*')
+            ->whereIn('tbl_genre.id', function($query) use ($slug) {
+                $query->select('tbl_poster_genres.genre_id')->from('tbl_poster_genres')
+                    ->join('tbl_poster', 'tbl_poster_genres.poster_id', '=', 'tbl_poster.id')
+                    ->where('tbl_poster.slug', 'like', '%'.$slug.'%');
+            })
+            ->where('tbl_poster.type', 'like', '%video%')
+            ->orderBy('tbl_poster.id', 'desc')
+            ->distinct()
+            ->take(10)
+            ->get();
+    }
+
+    public function getAllTvShow()
+    {
+        return DB::table('tbl_poster')->where('type', 'like', '%tvShow%')->orderBy('created_at', 'desc')->get();
+    }
+
+    public function getSimilarTvShowBySlug($slug)
+    {
+        return DB::table('tbl_genre')->leftJoin('tbl_poster_genres', 'tbl_genre.id', '=', 'tbl_poster_genres.genre_id')
+            ->leftJoin('tbl_poster', 'tbl_poster_genres.poster_id', '=', 'tbl_poster.id')
+            ->select('tbl_poster.*')
+            ->whereIn('tbl_genre.id', function($query) use ($slug) {
+                $query->select('tbl_poster_genres.genre_id')->from('tbl_poster_genres')
+                    ->join('tbl_poster', 'tbl_poster_genres.poster_id', '=', 'tbl_poster.id')
+                    ->where('tbl_poster.slug', 'like', '%'.$slug.'%');
+            })
+            ->where('tbl_poster.type', 'like', '%tvShow%')
+            ->orderBy('tbl_poster.id', 'desc')
+            ->distinct()
+            ->take(10)
+            ->get();
+    }
+
 
 }

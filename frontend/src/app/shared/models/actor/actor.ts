@@ -1,5 +1,10 @@
 export interface Actor{
-  name: String,
-  slug: String,
-  img: String,
+  name: string,
+  slug: string,
+  img: string,
+  role?: string,
+  born?: number,
+  height?: string,
+  type?: string,
+  bio?: string,
 }

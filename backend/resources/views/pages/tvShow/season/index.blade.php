@@ -264,7 +264,7 @@
             $('#btn-cancel-create-season').on('click', function () {
                 $('#create-season-box').hide();
             })
-            @if(isset($listSeason) && $listSeason != null)
+            @if(isset($listSeason) && $listSeason != null && isset($season) && $season != null)
 
                 $('#btn-delete-season').on('click', function () {
                     $.ajax({
@@ -279,7 +279,7 @@
                 });
             @endif
 
-            @if(isset($season->listEpisode) && $season->listEpisode != null)
+            @if(isset($season->listEpisode) && $season->listEpisode != null && isset($episode) && $episode != null)
 
             $('#btn-delete-episode').on('click', function () {
                 $.ajax({

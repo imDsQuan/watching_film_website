@@ -7,8 +7,10 @@ import { MovieItemComponent } from './components/movie-carousel/movie-item/movie
 import { CastItemComponent } from './components/cast-carousel/cast-item/cast-item.component';
 import { ActorItemComponent } from './components/actor-carousel/actor-item/actor-item.component';
 import {MovieRoutingModule} from "../modules/movie/movie-routing.module";
-
-
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatDialogModule} from '@angular/material/dialog';
+import { TrailerPopUpComponent } from './components/trailer-pop-up/trailer-pop-up.component';
+import {SafePipe} from "./services/SafePipe";
 
 @NgModule({
   declarations: [
@@ -17,17 +19,21 @@ import {MovieRoutingModule} from "../modules/movie/movie-routing.module";
     CastCarouselComponent,
     MovieItemComponent,
     CastItemComponent,
-    ActorItemComponent
+    ActorItemComponent,
+    TrailerPopUpComponent,
+    SafePipe
   ],
   imports: [
     CommonModule,
     MovieRoutingModule,
+    MatDialogModule,
   ],
-  exports: [
-    MovieCarouselComponent,
-    ActorCarouselComponent,
-    MovieItemComponent
-  ]
+    exports: [
+        MovieCarouselComponent,
+        ActorCarouselComponent,
+        MovieItemComponent,
+        SafePipe
+    ]
 
 })
 export class SharedModule { }

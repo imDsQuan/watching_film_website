@@ -1,0 +1,119 @@
+<style>
+  .login-page-bg {
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/images/background.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  .login-page-bg-blur {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background: #000000ad;
+  }
+
+  .login-page-content {
+    background: #0a101d;
+    padding-left: 70px;
+    padding-right: 70px;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    height: 100%;
+    text-align: center;
+    width: 550px;
+    overflow: auto;
+  }
+
+  .login-box {
+    position: relative !important;
+    width: 435px;
+    top: 0px;
+    max-width: 90%;
+    z-index: 1001;
+    box-shadow: 0px 0px 25px -8px #000;
+    border-radius: 5px;
+    overflow: hidden;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+  }
+
+</style>
+
+<div class="login-page-bg"></div>
+<div class="login-page-bg-blur"></div>
+<div class="login-page-content">
+  <h1 class="logo">Shining</h1>
+  <div class="login-box">
+    <div class="notif-head">
+      <span class="notif-title">
+        <i class="fa fa-fw fa-user-plus"></i>
+          Create your account now
+      </span>
+    </div>
+    <div class="notif-body">
+      <div class="row">
+        <div class="col-sm-6 col-xs-6">
+          <button>
+            <i class="fab fa-facebook-f"></i>
+            Facebook
+          </button>
+        </div>
+        <div class="col-sm-6 col-xs-6">
+          <button>
+            <i class="fab fa-google"></i>
+            Google
+          </button>
+        </div>
+      </div>
+      <div class="or">
+        <span>OR</span>
+      </div>
+      <form action="#" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div class="input-field">
+          <input type="text" placeholder="First Name" required formControlName="first_name">
+          <i class="uil uil-user"></i>
+
+        </div>
+        <div class="input-field">
+          <input type="text" placeholder="Last Name" required formControlName="last_name">
+          <i class="uil uil-user"></i>
+
+        </div>
+        <div class="input-field">
+          <input type="text" placeholder="Enter your email" required formControlName="email">
+          <i class="uil uil-envelope icon"></i>
+
+        </div>
+        <div class="input-field">
+          <input type="text" placeholder="Enter your username" required formControlName="username">
+          <i class="uil uil-user"></i>
+
+        </div>
+        <div class="input-field">
+          <input type="password" class="password" placeholder="Create a password" required formControlName="password">
+          <i class="uil uil-lock icon"></i>
+
+        </div>
+        <div class="input-field">
+          <input type="password" class="password" placeholder="Confirm a password" required
+                 formControlName="password_confirmation">
+          <i class="uil uil-lock icon"></i>
+        </div>
+
+
+        <div class="input-field button">
+          <input type="submit" value="Register" [disabled]="!signUpForm.valid" class="submit-button"></div>
+      </form>
+      <div class="">
+        <p>You have already an account ? <a href="/login"> Login</a></p>
+      </div>
+    </div>
+  </div>
+</div>

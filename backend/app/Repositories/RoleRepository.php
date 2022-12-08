@@ -13,8 +13,8 @@ class RoleRepository extends EloquentRepository
         return Role::class;
     }
 
-    public function maxPosition() {
-        return DB::table('tbl_role')->max('position');
+    public function maxPosition($poster_id) {
+        return DB::table('tbl_role')->where('poster_id', '=' , $poster_id)->max('position');
     }
 
     public function getAll()

@@ -2,7 +2,7 @@ import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Poster} from "../../../shared/models/poster/poster";
 
 import {MovieService} from "../../../core/services/movie/movie.service";
-import {PaginationInstance} from "ngx-pagination";
+import {NgxPaginationModule, PaginationInstance} from 'ngx-pagination';
 
 @Component({
   selector: 'app-all-movie',

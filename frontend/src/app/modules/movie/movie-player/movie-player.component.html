@@ -1,0 +1,136 @@
+<style>
+  #singleVideo, .video-player-wrapper {
+    width: 100vw;
+    height: calc(100vh - 60px);
+  }
+
+  .source-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:  50px;
+    padding: 20px;
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo-container .btn-back:hover {
+    color: var(--green);
+  }
+
+  .logo-container .logo {
+    font-size: 30px;
+    color: var(--green);
+    font-weight: 600;
+    margin: auto auto auto 20px;
+  }
+
+  .source-box {
+    position: relative;
+  }
+
+  .source-box .source-list {
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+    width: 250px;
+    border: 2px solid var(--white);
+    border-radius: 10px;
+    z-index: 1000;
+    background: var(--black);
+    display: none;
+  }
+
+  .source-box .source-list .source-item {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid;
+  }
+
+  .source-box .source-list .source-item:hover {
+    cursor: pointer;
+    background: var(--gray);
+  }
+
+  .source-box .source-button {
+    padding: 10px;
+    border: 2px solid var(--white);
+    color: var(--white);
+    font-size: 16px;
+    line-height: 16px;
+    border-radius: 10px;
+  }
+
+  .source-box .source-button:hover {
+    background: var(--gray);
+    cursor: pointer;
+  }
+
+  .source-box .source-button i {
+    font-size: 16px;
+    margin-left: 16px;
+  }
+
+</style>
+
+<div *ngIf="source?.type == 'Youtube'" class="video-player-wrapper">
+  <iframe  width="100%" height="100%" [src]="source.url | safe"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+</div>
+
+<div *ngIf="source?.type != 'Youtube'" class="video-player-wrapper">
+  <vg-player>
+    <vg-overlay-play></vg-overlay-play>
+    <vg-buffering></vg-buffering>
+    <vg-scrub-bar>
+      <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+      <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+    </vg-scrub-bar>
+    <vg-controls>
+      <vg-play-pause></vg-play-pause>
+      <vg-playback-button></vg-playback-button>
+      <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+      <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+      <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+      <vg-track-selector></vg-track-selector>
+      <vg-mute></vg-mute>
+      <vg-volume></vg-volume>
+      <vg-fullscreen></vg-fullscreen>
+    </vg-controls>
+    <video [vgMedia]="$any(media)" #media id="singleVideo" preload="auto" crossorigin [src]="source?.url!">
+<!--      <source src="{{source?.url! | safe }}" type="{{source?.type!}}">-->
+    </video>
+  </vg-player>
+
+</div>
+
+<div class="source-container">
+  <div class="logo-container">
+    <button id="btnBack" class="btn btn-back rounded-circle border border-light" routerLink="/movie/{{slug}}"><i class="fas fa-arrow-left"></i></button>
+    <h1 class="logo">Shinning</h1>
+  </div>
+  <div class="source-box">
+    <div #btnSource class="source-button" (click)="openListSource()">
+      <span class="source-type">{{type}} <i class="fas fa-caret-up"></i></span>
+    </div>
+
+    <div #lstSource class="source-list">
+      <a *ngFor="let source of lstSources" href="/movie/{{slug}}/player?type={{source.type}}" class="text-decoration-none">
+        <div class="source-item">
+          <span class="type">{{source.type}}</span>
+          <span class="quality">{{source.quality}}</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

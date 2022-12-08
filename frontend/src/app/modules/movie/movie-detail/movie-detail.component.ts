@@ -3,7 +3,10 @@ import {ActivatedRoute} from "@angular/router";
 import {MovieService} from "../../../core/services/movie/movie.service";
 import {Poster} from "../../../shared/models/poster/poster";
 import {Genre} from "../../../shared/models/genre/Genre";
-import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {MatDialog} from "@angular/material/dialog";
+import {TrailerPopUpComponent} from "../../../shared/components/trailer-pop-up/trailer-pop-up.component";
+import {Actor} from "../../../shared/models/actor/actor";
+
 
 @Component({
   selector: 'app-movie-detail',
@@ -12,19 +15,21 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class MovieDetailComponent implements OnInit {
 
+  slug: string | null | undefined;
   movie: Poster | undefined;
   lstGenres: Genre[] | undefined;
-  private closeResult: string | undefined;
+  lstCast: Actor[] | undefined;
+  lstSimilar: Poster[] | undefined;
   constructor(
     private movieService: MovieService,
     private route: ActivatedRoute,
-    private modalService: NgbModal
+    private dialogRef: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this.movieService.getBySlug(this.route.snapshot.paramMap.get('slug')).subscribe(
       data => {
-        console.log(data);
+        this.slug = this.route.snapshot.paramMap.get('slug');
         this.movie = data;
       }
     )
@@ -34,26 +39,23 @@ export class MovieDetailComponent implements OnInit {
         this.lstGenres = data;
       }
     )
+
+    this.movieService.getCast(this.route.snapshot.paramMap.get('slug')).subscribe(
+      data => {
+        this.lstCast = data;
+      }
+    )
+
+    this.movieService.getSimilar(this.route.snapshot.paramMap.get('slug')).subscribe(
+      data => {
+        this.lstSimilar = data;
+      })
   }
 
-  open(content: TemplateRef<any>) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-      (result: any) => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      (reason: any) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      },
-    );
+  openPopup() {
+    this.dialogRef.open(TrailerPopUpComponent, {
+      data: {url: this.movie?.trailer},
+    })
   }
 
-  private getDismissReason(reason : any) {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
 }

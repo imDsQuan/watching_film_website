@@ -687,4 +687,56 @@ class MovieController extends Controller
         $lstGenres = $this->posterRepo->getGenres($slug);
         return $lstGenres;
     }
+
+    public function getCastBySlug($slug)
+    {
+        $lstCast = $this->posterRepo->getCast($slug);
+        return $lstCast;
+    }
+
+    public function getSimilarBySlug($slug)
+    {
+        $listMovie = $this->posterRepo->getSimilarMovieBySlug($slug);
+        foreach ($listMovie as &$movie) {
+            $mediaCover = $this->mediaRepo->find($movie->cover_id);
+            $mediaPoster = $this->mediaRepo->find($movie->poster_id);
+            $movie->coverImg = $mediaCover['url'];
+            $movie->posterImg = $mediaPoster['url'];
+        }
+
+        return $listMovie;
+    }
+
+    public function getSourceBySlug($slug)
+    {
+        $movie = $this->posterRepo->getMovieBySlug($slug);
+        return $this->sourceRepo->getSourceByPosterId($movie->id)->toArray();
+    }
+
+    public function fakeSource(){
+        $lstMovie = $this->posterRepo->getAllMovie();
+        foreach($lstMovie as $movie) {
+            $this->sourceRepo->create([
+                'poster_id' => $movie->id,
+                'type' => 'FILE',
+                'url' => 'https://d14jyu72kj34fe.cloudfront.net/videos/Avatar_+The+Way+of+Water+_+Official+Trailer.mp4',
+                'quality' => '1080',
+                'title' => $movie->title,
+                'create_at' => Carbon::now(),
+            ]);
+
+            $this->sourceRepo->create([
+                'poster_id' => $movie->id,
+                'type' => 'Youtube',
+                'url' => 'https://www.youtube.com/embed/d9MyW72ELq0',
+                'quality' => '1080',
+                'title' => $movie->title,
+                'create_at' => Carbon::now(),
+            ]);
+        }
+
+        return $this->responseData();
+    }
+
+
 }

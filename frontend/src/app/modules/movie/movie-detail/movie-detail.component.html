@@ -12,6 +12,7 @@
 
   .movie-detail .title {
     font-size: 64px;
+    line-height: 64px;
     font-weight: 600;
     font-family: 'Sen', sans-serif;
   }
@@ -80,37 +81,26 @@
                 </div>
                 <p class="description">{{movie?.description}}</p>
                 <div class="feature-button">
-                  <button class="btn btn-watch-video mr-3" > Watch Now <i class="fas fa-play"></i></button>
-                  <button class="btn btn-watch-trailer" (click)="open(content)"> Watch Trailer <i class="fas fa-film"></i></button>
+                  <a href="movie/{{slug}}/player" class="btn btn-watch-video mr-3" > Watch Now <i class="fas fa-play"></i></a>
+                  <button class="btn btn-watch-trailer" (click)="openPopup()"> Watch Trailer <i class="fas fa-film"></i></button>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
-        <ng-template #content let-modal>
-          <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <div class="actor-list-container">
+          <h1 class="actor-list-title font-weight-bold">All Casts</h1>
+          <app-actor-carousel [lstActor]="lstCast"></app-actor-carousel>
+        </div>
+        <div class="movie-list-container">
+          <h1 class="movie-list-title font-weight-bold">Similar Movies</h1>
+          <div class="movie-list-wrapper">
+            <app-movie-carousel [lstPoster]="lstSimilar" ></app-movie-carousel>
           </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label >Date of birth</label>
-                <div class="input-group">
+        </div>
 
-                  <button class="btn btn-outline-secondary bi bi-calendar3" type="button"></button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-          </div>
-        </ng-template>
 
-      <div class="cast-container">
-        <h3>Casts</h3>
-      </div>
     </div>
   </router-outlet>
 </app-layout-site>

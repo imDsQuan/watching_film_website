@@ -8,4 +8,5 @@ export interface Poster{
   imdb?: number,
   year?: number,
   trailer?: String,
+  type?: String,
 }

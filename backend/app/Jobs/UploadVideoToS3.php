@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Http\Controllers\AwsS3Controller;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -34,11 +35,10 @@ class UploadVideoToS3 implements ShouldQueue
      * Execute the job.
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(AwsS3Controller $awsClient)
     {
-//        storage_path('app/' . $this->filePath)
         $awsClient->pushMedia([
             'sourcePath' => storage_path('app/' . $this->filePath),
             'targetPath' => 'videos/',

@@ -22,6 +22,7 @@ class CheckAdminLogin
             return $next($request);
         } else
             return redirect('/login');
+//            return response()->json('some response');
 
     }
 }

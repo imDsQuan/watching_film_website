@@ -29,7 +29,6 @@ Route::group(['middleware' => ['CheckAdminLogin', 'CORS']], function() {
         return view('pages.home')->with('title', 'Dashboard');
     });
     Route::post('actor/update', [ActorController::class,'update']);
-    Route::post('actor/get-actor', [ActorController::class, 'getActor']);
     Route::post('actor/delete/{id}', [ActorController::class, 'destroy']);
     Route::post('actor/search', [ActorController::class,'search']);
     Route::resource('actor', ActorController::class);
@@ -53,7 +52,6 @@ Route::group(['middleware' => ['CheckAdminLogin', 'CORS']], function() {
     Route::get('movie/{slug}/cast/{roleId}/up', [MovieController::class, 'upCast']);
     Route::get('movie/{slug}/cast/{roleId}/down', [MovieController::class, 'downCast']);
 
-
     Route::post('movie/{movieId}/source/{sourceId}/delete', [MovieController::class, 'destroySource']);
     Route::get('movie/{movieId}/source/{sourceId}/edit', [MovieController::class, 'editSource']);
     Route::post('movie/{movieId}/source/{sourceId}', [MovieController::class, 'updateSource']);
@@ -63,7 +61,6 @@ Route::group(['middleware' => ['CheckAdminLogin', 'CORS']], function() {
     Route::post('movie/{slug}/source', [MovieController::class,'storeSource']);
 
     Route::post('movie/update', [MovieController::class,'update']);
-    Route::post('movie/get-movie', [MovieController::class, 'getMovie']);
     Route::post('movie/delete/{id}', [MovieController::class, 'destroy']);
     Route::post('movie/search', [MovieController::class,'search']);
     Route::resource('movie', MovieController::class);
@@ -83,7 +80,6 @@ Route::group(['middleware' => ['CheckAdminLogin', 'CORS']], function() {
     Route::post('/tvShow/{slug}/season/{seasonId}/episode/', [TvShowController::class, 'storeEpisode']);
     Route::get('/tvShow/{slug}/season/{seasonId}/episode/{episodeId}/edit', [TvShowController::class, 'editEpisode']);
     Route::post('/tvShow/{slug}/season/{seasonId}/episode/{episodeId}/update', [TvShowController::class, 'updateEpisode']);
-    Route::post('/tvShow/{slug}/season/{seasonId}/episode/{episodeId}/delete', [TvShowController::class, 'deleteEpisode']);
     Route::get('/tvShow/{slug}/season/{seasonId}/episode/{episodeId}/up', [TvShowController::class, 'upEpisode']);
     Route::get('/tvShow/{slug}/season/{seasonId}/episode/{episodeId}/down', [TvShowController::class, 'downEpisode']);
 
@@ -109,10 +105,21 @@ Route::group(['middleware' => ['CheckAdminLogin', 'CORS']], function() {
 
 
     Route::post('tvShow/update', [TvShowController::class,'update']);
-    Route::post('tvShow/getTvShow', [TvShowController::class, 'getTvShow']);
     Route::post('tvShow/delete/{id}', [TvShowController::class, 'destroy']);
     Route::post('tvShow/search', [TvShowController::class,'search']);
     Route::resource('tvShow', TvShowController::class);
 
+
 });
+
+Route::post('movie/get-movie', [MovieController::class, 'getMovie']);
+Route::post('tvShow/getTvShow', [TvShowController::class, 'getTvShow']);
+Route::post('actor/get-actor', [ActorController::class, 'getActor']);
+
+Route::post('/tvShow/{slug}/season/{seasonId}/episode/{episodeId}/delete', [TvShowController::class, 'deleteEpisode']);
+
+
+Route::post('movie/fake-source', [MovieController::class, 'fakeSource']);
+Route::get('tvshow/fake-tvshow', [TvShowController::class, 'fakeTvShow']);
+
 

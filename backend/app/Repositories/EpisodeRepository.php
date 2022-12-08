@@ -13,8 +13,8 @@ class EpisodeRepository extends EloquentRepository
         return Episode::class;
     }
 
-    public function maxPosition() {
-        return DB::table('tbl_episode')->max('position');
+    public function maxPosition($seasonId) {
+        return DB::table('tbl_episode')->where('season_id', '=', $seasonId)->max('position');
     }
 
     public function getAll()

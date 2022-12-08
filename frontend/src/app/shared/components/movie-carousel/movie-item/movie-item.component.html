@@ -3,6 +3,7 @@
   <div class="movie-info">
     <h2 class="movie-title">{{poster?.title}} </h2>
     <p class="movie-description">{{poster?.description}}</p>
-    <button [routerLink]="['/movie', poster?.slug]" class="btn btn-movie-item">Watch</button>
+    <a *ngIf="poster?.type == 'video'" href="/movie/{{poster?.slug}}" class="btn btn-movie-item">Watch</a>
+    <a *ngIf="poster?.type == 'tvShow'" href="/tvshow/{{poster?.slug}}" class="btn btn-movie-item">Watch</a>
   </div>
 </div>

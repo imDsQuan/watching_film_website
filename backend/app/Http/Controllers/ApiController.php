@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use JWTAuth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ApiController extends Controller
 {
@@ -15,7 +15,7 @@ class ApiController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login.blade.php', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     public function register(RegisterAuthRequest $request)
@@ -56,30 +56,16 @@ class ApiController extends Controller
 //            'token' => 'required'
 //        ]);
 
-        try {
-            auth()->logout();
+        auth()->logout();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'User logged out successfully'
-            ]);
-        } catch (JWTException $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Sorry, the user cannot be logged out'
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        return response()->json([
+            'success' => true,
+            'message' => 'User logged out successfully'
+        ]);
     }
 
-    public function getAuthUser(Request $request)
-    {
-//        $this->validate($request, [
-//            'token' => 'required'
-//        ]);
-
-        $user = auth()->user();
-
-        return response()->json(['user' => $user]);
+    public function getAuthUser(){
+        return response()->json(auth()->user());
     }
 
     protected function createNewToken($token){

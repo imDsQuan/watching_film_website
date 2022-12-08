@@ -88,10 +88,10 @@
             var pagination_news_posts = document.getElementById('pagination-news-posts');
             $.ajax({
                 url: "http://localhost:8000/" + "movie/get-movie",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 method: "POST",
-                {{--headers: {--}}
-                {{--    'X-CSRF-TOKEN': {{ csrf_token() }}--}}
-                {{--},--}}
                 data: {
                     page: page,
                     limit: 20,

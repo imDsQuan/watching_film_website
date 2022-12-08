@@ -119,8 +119,11 @@ class PosterController extends Controller
         $poster = $this->posterRepo->getRandom();
         $mediaCover = $this->mediaRepo->find($poster->cover_id);
         $mediaPoster = $this->mediaRepo->find($poster->poster_id);
+        $source = $this->mediaRepo->find($poster->trailer_id);
         $poster['coverImg'] = $mediaCover->url;
         $poster['posterImg'] = $mediaPoster->url;
+        $poster['trailer'] = $source['url'];
+
         return $poster;
     }
 
