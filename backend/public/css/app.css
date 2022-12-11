@@ -634,7 +634,7 @@ body {
 }
 
 .tab-moivie .btn-tab-movie, .tab-moivie .btn-tab-movie-active {
-    width: calc(16.2828% - 2px);
+    width: calc(24.2828% - 2px);
 }
 
 .btn-disabled{

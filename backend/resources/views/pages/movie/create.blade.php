@@ -41,8 +41,6 @@
                     <a href="#" class="btn btn-tab-movie btn-disabled d-flex justify-content-center align-items-center"><ion-icon name="folder-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Sources</a>
                     <a href="#" class="btn btn-tab-movie btn-disabled d-flex justify-content-center align-items-center"><ion-icon name="people-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Cast</a>
                     <a href="#" class="btn btn-tab-movie btn-disabled d-flex justify-content-center align-items-center"><ion-icon name="play-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Trailer</a>
-                    <a href="#" class="btn btn-tab-movie btn-disabled d-flex justify-content-center align-items-center"><ion-icon name="document-text-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Comments</a>
-                    <a href="#" class="btn btn-tab-movie btn-disabled d-flex justify-content-center align-items-center"><ion-icon name="star-half-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Ratings</a>
                 </div>
             </div>
             <div class="card">
