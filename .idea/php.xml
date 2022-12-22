@@ -131,6 +131,7 @@
       <path value="$PROJECT_DIR$/backend/vendor/predis/predis" />
       <path value="$PROJECT_DIR$/backend/vendor/pion/laravel-chunk-upload" />
       <path value="$PROJECT_DIR$/backend/vendor/fruitcake/php-cors" />
+      <path value="$PROJECT_DIR$/backend/vendor/paypal/rest-api-sdk-php" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

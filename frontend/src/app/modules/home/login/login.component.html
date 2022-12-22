@@ -1,4 +1,11 @@
 <style>
+
+  .rs-password {
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--green);
+  }
+
   .login-page-bg {
     width: 100%;
     height: 100%;
@@ -30,6 +37,16 @@
     overflow: auto;
   }
 
+  .login-page-content .logo {
+    margin-top: 80px;
+    margin-bottom: 70px;
+    font-size: 68px;
+    color: var(--green);
+    font-weight: 600;
+    text-shadow: 0 0 5px var(--green), 0 0 0 var(--green), 0 0 2px var(--green),
+    0 0 40px var(--green), 0 0 60px #5cae3b, 0 0 10px #5cae3b, 0 0 98px #5cae3b;
+  }
+
   .login-box {
     position: relative !important;
     width: 435px;
@@ -44,6 +61,73 @@
     display: block;
   }
 
+  .login-box .notif-head {
+    color: var(--white);
+    font-size: 18px;
+    padding: 14px 0;
+    border: 1px solid var(--black);
+  }
+
+  .login-box .notif-head i {
+    margin-right: 8px;
+  }
+
+  .login-box .notif-body {
+    background: #000010;
+    padding: 20px 20px;
+  }
+
+  .login-box .notif-body button {
+    border-radius: 8px;
+  }
+
+  .login-box .notif-body .or {
+    padding: 10PX;
+    color: #fff;
+    font-style: italic;
+  }
+
+  .login-box .notif-body p {
+    color: white;
+    font-size: 16px;
+  }
+
+  .login-box .notif-body p a {
+    color: var(--green);
+  }
+
+  .btn-facebook {
+    background: #3b5998;
+    color: white!important;
+  }
+
+  .btn-google {
+    background: #db4a39;
+    color: white!important;
+  }
+
+  .input-field {
+    background-color: #0a101d;
+    border: 1px solid #121b2f;
+    color: white;
+    height: 40px;
+    font-weight: bold;
+    border-radius: 8px;
+  }
+
+  .btn-submit {
+    background: transparent;
+    color: #ffb021!important;
+    opacity: 0.8;
+    border: 1px solid #ffb021;
+  }
+
+
+  button:disabled,
+  button[disabled]{
+    opacity: 0.4;
+  }
+
 </style>
 
 <div class="login-page-bg"></div>
@@ -53,20 +137,20 @@
   <div class="login-box">
     <div class="notif-head">
       <span class="notif-title">
-        <i class="fa fa-fw fa-user-plus"></i>
-          Create your account now
+        <i class="fa fa-fw fa-lock"></i>
+          Sign in to your account
       </span>
     </div>
     <div class="notif-body">
       <div class="row">
         <div class="col-sm-6 col-xs-6">
-          <button>
+          <button class="btn btn-block btn-facebook">
             <i class="fab fa-facebook-f"></i>
             Facebook
           </button>
         </div>
         <div class="col-sm-6 col-xs-6">
-          <button>
+          <button class="btn btn-block btn-google">
             <i class="fab fa-google"></i>
             Google
           </button>
@@ -75,44 +159,27 @@
       <div class="or">
         <span>OR</span>
       </div>
-      <form action="#" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-        <div class="input-field">
-          <input type="text" placeholder="First Name" required formControlName="first_name">
-          <i class="uil uil-user"></i>
+      <form action="#" #loginForm=ngForm (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input class="form-control input-field" name="username" type="text" placeholder="Enter your username" required [(ngModel)]="form.username">
 
         </div>
-        <div class="input-field">
-          <input type="text" placeholder="Last Name" required formControlName="last_name">
-          <i class="uil uil-user"></i>
-
-        </div>
-        <div class="input-field">
-          <input type="text" placeholder="Enter your email" required formControlName="email">
-          <i class="uil uil-envelope icon"></i>
-
-        </div>
-        <div class="input-field">
-          <input type="text" placeholder="Enter your username" required formControlName="username">
-          <i class="uil uil-user"></i>
-
-        </div>
-        <div class="input-field">
-          <input type="password" class="password" placeholder="Create a password" required formControlName="password">
-          <i class="uil uil-lock icon"></i>
-
-        </div>
-        <div class="input-field">
-          <input type="password" class="password" placeholder="Confirm a password" required
-                 formControlName="password_confirmation">
-          <i class="uil uil-lock icon"></i>
+        <div class="form-group">
+          <input class="form-control input-field" name="password" type="password" placeholder="Password" required [(ngModel)]="form.password">
         </div>
 
 
-        <div class="input-field button">
-          <input type="submit" value="Register" [disabled]="!signUpForm.valid" class="submit-button"></div>
+        <div class="button">
+          <button class="btn btn-submit w-100" type="submit" value="Register" [disabled]="!loginForm.valid" >
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </button>
+        </div>
       </form>
+      <div class="p-3 text-white">
+        <a href="/request-password-reset" class="rs-password">Reset your password</a>
+      </div>
       <div class="">
-        <p>You have already an account ? <a href="/login"> Login</a></p>
+        <p>Are you new here <a href="/signup"> Sign Up</a></p>
       </div>
     </div>
   </div>

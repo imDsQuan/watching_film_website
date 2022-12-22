@@ -2,12 +2,11 @@
     <ul>
         <li>
             <a href="#">
-                <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
-                <span class="title">Brand Name</span>
+                <h1 class="title">Shinning</h1>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/">
                 <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                 <span class="title">Dashboard</span>
             </a>
@@ -45,14 +44,14 @@
         </li>
         <li>
             <a href="#">
-                <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
-                <span class="title">Settings</span>
+                <span class="icon"><ion-icon name="notifications-outline"></ion-icon></span>
+                <span class="title">Notification</span>
             </a>
         </li>
         <li>
             <a href="#">
-                <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
-                <span class="title">Password</span>
+                <span class="icon"><ion-icon name="card-outline"></ion-icon></span>
+                <span class="title">Payment</span>
             </a>
         </li>
         <li>

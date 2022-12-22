@@ -585,11 +585,13 @@ class MovieController extends Controller
 
     public function editCast($slug, $roleId) {
         $role = $this->roleRepo->find($roleId);
+        $actor = $this->actorRepo->find($role->actor_id);
         $movie = $this->posterRepo->getMovieBySlug($slug);
         return view('pages.movie.cast.edit', [
             'title' => 'Edit Role',
             'movie' => $movie,
             'role' => $role,
+            'actor' => $actor,
         ]);
     }
 

@@ -150,7 +150,7 @@
                     </div>
                 </div>
                 <div class="tab-moivie">
-                    <a href="#" class="btn btn-tab-movie d-flex justify-content-center align-items-center">
+                    <a href="/tvShow/{{$tvShow->slug}}/edit" class="btn btn-tab-movie d-flex justify-content-center align-items-center">
                         <ion-icon name="add-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon>
                         Edit</a>
                     <a href="/tvShow/{{$tvShow->slug}}/episode"
@@ -165,12 +165,6 @@
                        class="btn btn-tab-movie d-flex justify-content-center align-items-center">
                         <ion-icon name="play-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon>
                         Trailer</a>
-                    <a href="#" class="btn btn-tab-movie d-flex justify-content-center align-items-center">
-                        <ion-icon name="document-text-outline" style="font-size:16px; margin-right:8px;"></ion-icon>
-                        Comments</a>
-                    <a href="#" class="btn btn-tab-movie d-flex justify-content-center align-items-center">
-                        <ion-icon name="star-half-outline" style="font-size:16px; margin-right:8px;"></ion-icon>
-                        Ratings</a>
                 </div>
             </div>
             <div class="card">

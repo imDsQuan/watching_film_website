@@ -6,6 +6,10 @@ import {Genre} from "../../../shared/models/genre/Genre";
 import {MatDialog} from "@angular/material/dialog";
 import {TrailerPopUpComponent} from "../../../shared/components/trailer-pop-up/trailer-pop-up.component";
 import {Actor} from "../../../shared/models/actor/actor";
+import {UserService} from "../../../core/services/auth/user/user.service";
+import {MyListService} from "../../../core/services/myList/my-list.service";
+import {ToastrService} from "ngx-toastr";
+import {User} from "../../../shared/models/user/User";
 
 
 @Component({
@@ -20,13 +24,20 @@ export class MovieDetailComponent implements OnInit {
   lstGenres: Genre[] | undefined;
   lstCast: Actor[] | undefined;
   lstSimilar: Poster[] | undefined;
+  user: User | undefined;
   constructor(
     private movieService: MovieService,
     private route: ActivatedRoute,
     private dialogRef: MatDialog,
+    private User: UserService,
+    private MyList: MyListService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
+
+    this.user = this.User.get();
+
     this.movieService.getBySlug(this.route.snapshot.paramMap.get('slug')).subscribe(
       data => {
         this.slug = this.route.snapshot.paramMap.get('slug');
@@ -58,4 +69,18 @@ export class MovieDetailComponent implements OnInit {
     })
   }
 
+  addToMyList() {
+    this.toastr.success('Add Movie To List Successfully.');
+    let data = {
+      user_id : this.user?.id,
+      poster_id: this.movie?.id,
+    }
+    this.MyList.addToList(data).subscribe(
+      data => this.handleResponse(data),
+    )
+  }
+
+  handleResponse(data: any) {
+
+  }
 }

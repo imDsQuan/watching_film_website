@@ -6,7 +6,11 @@ import {ThemeModule} from "../../core/layout/theme.module";
 import {SharedModule} from "../../shared/shared.module";
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { PaymentComponent } from './payment/payment.component';
+import { RequestResetComponent } from './password/request-reset/request-reset.component';
+import { ResponseResetComponent } from './password/response-reset/response-reset.component';
+import { MylistComponent } from './mylist/mylist.component';
 
 
 @NgModule({
@@ -14,15 +18,20 @@ import {ReactiveFormsModule} from "@angular/forms";
     HomeComponent,
     SignupComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    PaymentComponent,
+    RequestResetComponent,
+    ResponseResetComponent,
+    MylistComponent
   ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    ThemeModule,
-    SharedModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        ThemeModule,
+        SharedModule,
+        ReactiveFormsModule,
+        FormsModule
+    ],
   exports: [
   ],
 })

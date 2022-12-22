@@ -75,4 +75,6 @@ class ApiController extends Controller
             'user' => auth()->user()
         ]);
     }
+
+
 }

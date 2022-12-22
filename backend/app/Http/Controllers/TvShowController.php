@@ -374,11 +374,13 @@ class TvShowController extends Controller
     public function editCast($slug, $roleId)
     {
         $role = $this->roleRepo->find($roleId);
+        $actor = $this->actorRepo->find($role->actor_id);
         $tvShow = $this->posterRepo->getTvShowBySlug($slug);
         return view('pages.tvShow.cast.edit', [
             'title' => 'Edit Role',
             'tvShow' => $tvShow,
             'role' => $role,
+            'actor' => $actor,
         ]);
     }
 

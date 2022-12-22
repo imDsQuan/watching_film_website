@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="tab-moivie">
-                    <a href="#" class="btn btn-tab-movie d-flex justify-content-center align-items-center"><ion-icon name="add-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Edit</a>
+                    <a href="/tvShow/{{$tvShow->slug}}/edit" class="btn btn-tab-movie d-flex justify-content-center align-items-center"><ion-icon name="add-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Edit</a>
                     <a href="/tvShow/{{$tvShow->slug}}/season" class="btn btn-tab-movie d-flex justify-content-center align-items-center"><ion-icon name="library-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Season</a>
                     <a href="/tvShow/{{$tvShow->slug}}/cast" class="btn btn-tab-movie-active d-flex justify-content-center align-items-center"><ion-icon name="people-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Cast</a>
                     <a href="/tvShow/{{$tvShow->slug}}/trailer" class="btn btn-tab-movie d-flex justify-content-center align-items-center"><ion-icon name="play-circle-outline" style="font-size:16px; margin-right:8px;"></ion-icon> Trailer</a>
@@ -86,8 +86,8 @@
                                 <div class="card" style="height: 360px">
                                     <img class="card-img-top" src="{{$actor->img_url}}" alt="Card image cap" style="height: 200px; object-fit: cover">
                                     <div class="card-body">
-                                        <h3 class="text-center">{{$actor->role}}</h3>
-                                        <h5 class="card-title text-center">{{$actor->name}}</h5>
+                                        <h3 class="text-center" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">{{$actor->role}}</h3>
+                                        <h5 class="card-title text-center" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;" >{{$actor->name}}</h5>
                                         <div class="d-flex justify-content-center align-items-center">
                                             <a href="/tvShow/{{$tvShow->slug}}/cast/{{$actor->role_id}}/edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
                                             <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData({{$actor->role_id}})"><ion-icon name="trash-outline"></ion-icon></button>

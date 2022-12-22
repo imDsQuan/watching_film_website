@@ -18,11 +18,11 @@
     <div class="profile-container">
       <img class="profile-picture" src="assets/images/profile.jpg" alt="">
       <div class="profile-text-container">
-        <span class="profile-text">Profile</span>
+        <span class="profile-text">{{user?.full_name}}</span>
         <i class="fas fa-caret-down"></i>
         <ul class="profile-menu">
           <li class="profile-menu-item"><i class="fas fa-user"></i> Profile</li>
-          <li class="profile-menu-item"><i class="fas fa-sign-out-alt"></i> Sign Out</li>
+          <li class="profile-menu-item" (click)="logout($event)" ><i class="fas fa-sign-out-alt"></i> Sign Out</li>
         </ul>
       </div>
     </div>

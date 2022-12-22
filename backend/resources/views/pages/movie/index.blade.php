@@ -27,7 +27,7 @@
         <!--  cards -->
 
         <div class="container">
-            <div class="row">
+            <div class="row flex-center">
                 <a href="/movie" class="col-3 text-decoration-none">
                     <div class="card m-2 bg-primary p-2">
                         <div class="card-body d-flex justify-content-center align-content-center text-white">
@@ -49,14 +49,6 @@
                         <div class="card-body d-flex justify-content-center align-content-center text-white">
                             <ion-icon name="add-circle-outline" style="font-size: 32px;"></ion-icon>
                             <span class="font-weight-bold ml-1" style="font-size: 24px;">Create</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="/movie/import" class="col-3 text-decoration-none">
-                    <div class="card m-2 bg-dark p-2">
-                        <div class="card-body d-flex justify-content-center align-content-center text-white">
-                            <ion-icon name="arrow-down-circle-outline" style="font-size: 32px;"></ion-icon>
-                            <span class="font-weight-bold ml-1" style="font-size: 24px;">Import</span>
                         </div>
                     </div>
                 </a>
@@ -106,7 +98,7 @@
                                             <div class="card">
                                                 <img class="card-img-top" src="` + data.data.data[count].img_thumbnail + `" alt="Card image cap" style="height: 200px; object-fit: cover">
                                                 <div class="card-body">
-                                                    <h5 class="card-title text-center">` + data.data.data[count].title + `</h5>
+                                                    <h5 class="card-title text-center" style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">` + data.data.data[count].title + `</h5>
                                                     <div class="d-flex justify-content-center align-items-center">
                                                         <a href=" /movie/` + data.data.data[count].slug + `/edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
                                                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData(` + data.data.data[count].id + `)"><ion-icon name="trash-outline"></ion-icon></button>

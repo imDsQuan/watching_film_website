@@ -1,0 +1,161 @@
+<style>
+
+  .rs-password {
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--green);
+  }
+
+  .login-page-bg {
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/images/background.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  .login-page-bg-blur {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background: #000000ad;
+  }
+
+  .login-page-content {
+    background: #0a101d;
+    padding-left: 70px;
+    padding-right: 70px;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    height: 100%;
+    text-align: center;
+    width: 550px;
+    overflow: auto;
+  }
+
+  .login-page-content .logo {
+    margin-top: 80px;
+    margin-bottom: 70px;
+    font-size: 68px;
+    color: var(--green);
+    font-weight: 600;
+    text-shadow: 0 0 5px var(--green), 0 0 0 var(--green), 0 0 2px var(--green),
+    0 0 40px var(--green), 0 0 60px #5cae3b, 0 0 10px #5cae3b, 0 0 98px #5cae3b;
+  }
+
+  .login-box {
+    position: relative !important;
+    width: 435px;
+    top: 0px;
+    max-width: 90%;
+    z-index: 1001;
+    box-shadow: 0px 0px 25px -8px #000;
+    border-radius: 5px;
+    overflow: hidden;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+  }
+
+  .login-box .notif-head {
+    color: var(--white);
+    font-size: 18px;
+    padding: 14px 0;
+    border: 1px solid var(--black);
+  }
+
+  .login-box .notif-head i {
+    margin-right: 8px;
+  }
+
+  .login-box .notif-body {
+    background: #000010;
+    padding: 20px 20px;
+  }
+
+  .login-box .notif-body button {
+    border-radius: 8px;
+  }
+
+  .login-box .notif-body .or {
+    padding: 10PX;
+    color: #fff;
+    font-style: italic;
+  }
+
+  .login-box .notif-body p {
+    color: white;
+    font-size: 16px;
+  }
+
+  .login-box .notif-body p a {
+    color: var(--green);
+  }
+
+  .btn-facebook {
+    background: #3b5998;
+    color: white!important;
+  }
+
+  .btn-google {
+    background: #db4a39;
+    color: white!important;
+  }
+
+  .input-field {
+    background-color: #0a101d;
+    border: 1px solid #121b2f;
+    color: white;
+    height: 40px;
+    font-weight: bold;
+    border-radius: 8px;
+  }
+
+  .btn-submit {
+    background: transparent;
+    color: #ffb021!important;
+    opacity: 0.8;
+    border: 1px solid #ffb021;
+  }
+
+
+  button:disabled,
+  button[disabled]{
+    opacity: 0.4;
+  }
+
+</style>
+
+<div class="login-page-bg"></div>
+<div class="login-page-bg-blur"></div>
+<div class="login-page-content">
+  <h1 class="logo">Shining</h1>
+  <div class="login-box">
+    <div class="notif-head">
+      <span class="notif-title">
+        <i class="fa fa-fw fa-lock"></i>
+          Reset your password
+      </span>
+    </div>
+    <div class="notif-body">
+      <form action="#" #RequestResetForm=ngForm (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input class="form-control input-field" name="username" type="text" placeholder="Enter your email" required [(ngModel)]="form.email">
+        </div>
+
+        <div class="button">
+          <button class="btn btn-submit w-100" type="submit" value="Register" [disabled]="!RequestResetForm.valid" >
+            <i class="fas fa-sign-in-alt"></i> Submit
+          </button>
+        </div>
+        <div class="">
+          <p>If you have an Account <a href="/login"> Login</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

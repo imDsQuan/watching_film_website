@@ -1,4 +1,5 @@
 export interface Poster{
+  id?: number;
   duration?: number;
   title: String,
   description: String,

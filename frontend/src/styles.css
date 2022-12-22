@@ -5,6 +5,11 @@
   --green: #4dbf00;
   --white: #fff;
   --black: #151515;
+  --h1color: #6e768d;
+  --h3color: #b4bdc6;
+  --widthoftable: 31%;
+  --bgctables: #ffffff;
+  --bgfontcolor: #717787;
 }
 
 * {
@@ -158,6 +163,7 @@ body {
   list-style: none;
   border: 1px solid var(--white);
   display: none;
+  z-index: 1003;
 }
 
 .profile-text-container .profile-menu-item {
@@ -517,6 +523,8 @@ body {
   border-radius: 20px;
 }
 
+
+
 @media (max-width: 1023px) {
   .feature {
     padding: 50px;
@@ -550,9 +558,16 @@ body {
   }
 }
 
+.alert-danger {
+  color: #ac232c;
+  background-color: transparent;
+  border-color: transparent;
+}
 
-
-
+.alert {
+  padding: 0 4px;
+  text-align: left;
+}
 
 
 html, body { height: 100%; }

@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\ActorController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\MyListController;
 use App\Http\Controllers\PosterController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TvShowController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +29,9 @@ Route::group(['middleware' => [ 'CORS']], function ($router) {
     Route::post('register', [ApiController::class, 'register']);
     Route::get('logout', [ApiController::class, 'logout']);
     Route::get('user', [ApiController::class, 'getAuthUser']);
+    Route::post('sendPasswordResetLink', [ResetPasswordController::class, 'sendEmail']);
+    Route::post('resetPassword', [ChangePasswordController::class, 'process']);
+
 });
 
 Route::group(['middleware' => ['CORS']], function() {
@@ -33,6 +39,13 @@ Route::group(['middleware' => ['CORS']], function() {
         Route::get('/random', [PosterController::class, 'getRandom']);
         Route::get('/getNewRelease', [PosterController::class, 'getNewRelease']);
         Route::get('/genre/{genre}',[PosterController::class, 'getByGenre']);
+    });
+
+    Route::group(['prefix' => 'myList'], function() {
+        Route::post('/addToList', [MyListController::class, 'addToList']);
+        Route::post('/remove', [MyListController::class, 'remove']);
+        Route::post('/getAll', [MyListController::class, 'getAll']);
+
     });
 
     Route::group(['prefix' => 'actor'], function() {

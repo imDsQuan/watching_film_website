@@ -137,6 +137,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/predis/predis" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/pion/laravel-chunk-upload" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/fruitcake/php-cors" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/paypal/rest-api-sdk-php" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
