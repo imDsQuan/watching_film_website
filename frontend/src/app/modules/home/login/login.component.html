@@ -144,13 +144,13 @@
     <div class="notif-body">
       <div class="row">
         <div class="col-sm-6 col-xs-6">
-          <button class="btn btn-block btn-facebook">
+          <button class="btn btn-block btn-facebook" (click)="loginWithFacebook()">
             <i class="fab fa-facebook-f"></i>
             Facebook
           </button>
         </div>
         <div class="col-sm-6 col-xs-6">
-          <button class="btn btn-block btn-google">
+          <button class="btn btn-block btn-google" #loginRef >
             <i class="fab fa-google"></i>
             Google
           </button>

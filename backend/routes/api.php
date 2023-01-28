@@ -3,11 +3,16 @@
 use App\Http\Controllers\ActorController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\MyListController;
+use App\Http\Controllers\PackController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\PosterController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TvShowController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +43,10 @@ Route::group(['middleware' => ['CORS']], function() {
     Route::group(['prefix' => 'poster'], function() {
         Route::get('/random', [PosterController::class, 'getRandom']);
         Route::get('/getNewRelease', [PosterController::class, 'getNewRelease']);
+        Route::get('/genre/all',[PosterController::class, 'getAllGenre']);
         Route::get('/genre/{genre}',[PosterController::class, 'getByGenre']);
+        Route::get('/actor/{id}', [PosterController::class, 'getByActor']);
+
     });
 
     Route::group(['prefix' => 'myList'], function() {
@@ -50,12 +58,22 @@ Route::group(['middleware' => ['CORS']], function() {
 
     Route::group(['prefix' => 'actor'], function() {
         Route::get('/popular', [ActorController::class, 'getPopular']);
+        Route::get('/getAll', [ActorController::class, 'getAll']);
+        Route::post('/getActor', [ActorController::class, 'getActorById']);
+        Route::post('/search',[ActorController::class, 'searchActor']);
+    });
+
+    Route::group(['prefix' => 'pack'], function() {
+        Route::get('/getAll', [PackController::class, 'getAllPack']);
+        Route::post('/getPack', [PackController::class,'getPack']);
     });
 
     Route::group(['prefix' => 'movie'], function() {
+        Route::post('/search',[MovieController::class, 'searchMovie']);
         Route::get('/all', [MovieController::class, 'getAll']);
         Route::get('/getMovie', [MovieController::class, 'getMovie']);
         Route::get('/{slug}/genres', [MovieController::class, 'getGenresBySlug']);
+        Route::get('/actor/{id}', [MovieController::class, 'getMovieByActor']);
         Route::get('/{slug}/cast', [MovieController::class, 'getCastBySlug']);
         Route::get('/{slug}/similar', [MovieController::class, 'getSimilarBySlug']);
         Route::get('/{slug}/source', [MovieController::class, 'getSourceBySlug']);
@@ -63,6 +81,7 @@ Route::group(['middleware' => ['CORS']], function() {
     });
 
     Route::group(['prefix' => 'tvshow'], function() {
+        Route::post('/search',[TvShowController::class, 'searchTvShow']);
         Route::get('/fake-actor', [TvShowController::class, 'fakeActor']);
         Route::get('/fake-source', [TvShowController::class,'fakeSourceTV']);
         Route::get('/all', [TvShowController::class, 'getAll']);
@@ -74,4 +93,11 @@ Route::group(['middleware' => ['CORS']], function() {
         Route::get('/{slug}/season' ,[TvShowController::class, 'getSeasonBySlug']);
         Route::get('/{slug}', [TvShowController::class, 'getBySlug']);
     });
+
+    Route::post('paypal/checkout', [  PaymentController::class, 'checkoutPaypal']);
+    Route::post('/get-notification', [UserController::class, 'getNotification']);
+    Route::post('/mark-as-read', [UserController::class, 'markAllAsRead']);
+
+    Route::post('login-with-google', [ApiController::class, 'loginWithGoogle']);
+    Route::post('login-with-facebook', [ApiController::class, 'loginWithFacebook']);
 });

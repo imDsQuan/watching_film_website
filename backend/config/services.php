@@ -30,4 +30,15 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URL'),
+    ],
+    'facebook' => [
+        'client_id' => '830560648045666', //USE FROM FACEBOOK DEVELOPER ACCOUNT
+        'client_secret' => '933cdcee6fc6d296cf6c89df6e614fa9', //USE FROM FACEBOOK DEVELOPER ACCOUNT
+        'redirect' => 'http://localhost:4200/'
+    ],
+
 ];

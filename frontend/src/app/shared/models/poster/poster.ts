@@ -10,4 +10,6 @@ export interface Poster{
   year?: number,
   trailer?: String,
   type?: String,
+  item_id?: number,
+  genre?: any,
 }

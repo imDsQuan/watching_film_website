@@ -3,6 +3,9 @@ import {Poster} from "../../../shared/models/poster/poster";
 
 import {MovieService} from "../../../core/services/movie/movie.service";
 import {NgxPaginationModule, PaginationInstance} from 'ngx-pagination';
+import {Genre} from "../../../shared/models/genre/Genre";
+import {PosterService} from "../../../core/services/poster/poster.service";
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
   selector: 'app-all-movie',
@@ -33,6 +36,9 @@ export class AllMovieComponent implements OnInit {
   public eventLog: string[] = [];
 
   private popped : Poster[] = [];
+  selectedGenre?: Genre;
+  lstGenre?: Genre[];
+  public lstMovieAll: Poster[] = [];
 
   onPageChange(number: number) {
     this.logEvent(`pageChange(${number})`);
@@ -66,6 +72,7 @@ export class AllMovieComponent implements OnInit {
 
   constructor(
     private movieService: MovieService,
+    private Ps: PosterService,
   ) {
 
   }
@@ -75,9 +82,30 @@ export class AllMovieComponent implements OnInit {
       value => {
         console.log(value);
         this.lstMovie = value;
+        this.lstMovieAll = value;
       }
     )
+
+    this.Ps.getAllGenre().subscribe(
+      value => {
+        console.log(value);
+        this.lstGenre = Object.values(value);
+      }
+    )
+
   }
 
 
+  onChangeGenre(event: MatSelectChange) {
+    this.lstMovieAll = this.lstMovie.filter(movie => {
+      let key = false;
+      for (let id of movie.genre) {
+        console.log(id.genre_id)
+        if (id.genre_id == event.value)
+          key = true;
+      }
+      return key;
+    });
+    console.log(this.lstMovieAll);
+  }
 }

@@ -9,6 +9,11 @@ import {BeforeLoginService} from "../../core/services/auth/before-login.service"
 import {RequestResetComponent} from "./password/request-reset/request-reset.component";
 import {ResponseResetComponent} from "./password/response-reset/response-reset.component";
 import {MylistComponent} from "./mylist/mylist.component";
+import {PaymentDetailComponent} from "./payment/payment-detail/payment-detail.component";
+import {ProfileComponent} from "./profile/profile.component";
+import {SearchComponent} from "./search/search.component";
+import {LoginWithGoogleComponent} from "./login-with-google/login-with-google.component";
+import {ProfileEditComponent} from "./profile/profile-edit/profile-edit.component";
 
 const routes: Routes = [
   {
@@ -41,6 +46,11 @@ const routes: Routes = [
     canActivate: [BeforeLoginService]
   },
   {
+    path: 'payment/:id',
+    component: PaymentDetailComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
     path: 'payment',
     component: PaymentComponent,
     canActivate: [AfterLoginService]
@@ -49,7 +59,38 @@ const routes: Routes = [
     path: 'my-list',
     component: MylistComponent,
     canActivate: [AfterLoginService]
+  },
+  {
+    path: 'profile/:id',
+    component: ProfileEditComponent,
+    canActivate: [AfterLoginService]
+  },
+  // {
+  //   path: 'profile',
+  //   component: ProfileComponent,
+  //   canActivate: [AfterLoginService]
+  // },
+  // {
+  //   path: 'profile',
+  //   component: ProfileComponent,
+  //   canActivate: [AfterLoginService]
+  // },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'login-with-google',
+    component: LoginWithGoogleComponent,
+    canActivate: [BeforeLoginService]
   }
+
 ];
 
 @NgModule({

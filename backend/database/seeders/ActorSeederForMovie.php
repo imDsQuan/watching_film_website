@@ -20,16 +20,18 @@ class ActorSeederForMovie extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
-            $k = 0;
-            for ($i = 20; $i <= 41; $i++){
-                DB::table('tbl_role')->insert([
-                    'poster_id' => 48,
-                    'actor_id' => $i,
-                    'role' => $faker->name,
-                    'position' => ++$k,
-                ]);
-            }
 
+        $limit = 10;
+
+        for ($i = 0; $i < $limit; $i++) {
+            DB::table('users')->insert([
+                'full_name' => $faker->name,
+                'phone' => '0' . mt_rand(1000000000, 9999999999),
+                'email' => $faker->email,
+                'username' => $faker->userName,
+                'password' => bcrypt(123123),
+            ]);
+        }
 
 
     }

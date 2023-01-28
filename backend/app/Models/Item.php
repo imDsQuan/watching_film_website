@@ -9,7 +9,7 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_items';
+    protected $table = 'tbl_item';
 
     protected $fillable = ['poster_id', 'user_id', 'position'];
 

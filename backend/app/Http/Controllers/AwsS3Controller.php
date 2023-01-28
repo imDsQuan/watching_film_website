@@ -46,21 +46,21 @@ class AwsS3Controller extends Controller
         ];
     }
 
-    /**
-     * Scaned all the directories and
-     * Loop through array of all files.
-     */
-    public function scanDirectory($params) {
-        $sourcePath = array_diff(scandir($params['sourcePath']), ['.', '..']);
-        if (count($sourcePath)>0) {
-            foreach($sourcePath as $fileName) {
-                $params['fileName'] = $fileName;
-                $this->uploadFile($params);
-            }
-        } else {
-            throw new MultipartUploadException("There are no file in directory.");
-        }
-    }
+//    /**
+//     * Scaned all the directories and
+//     * Loop through array of all files.
+//     */
+//    public function scanDirectory($params) {
+//        $sourcePath = array_diff(scandir($params['sourcePath']), ['.', '..']);
+//        if (count($sourcePath)>0) {
+//            foreach($sourcePath as $fileName) {
+//                $params['fileName'] = $fileName;
+//                $this->uploadFile($params);
+//            }
+//        } else {
+//            throw new MultipartUploadException("There are no file in directory.");
+//        }
+//    }
 
     /**
      * Upload files on AWS server in chunk.
@@ -81,13 +81,13 @@ class AwsS3Controller extends Controller
      * Accept two parameters. Bucket file path.
      * Time to availabe signed link.
      */
-    public function awsFilePath($path, $duration = 5) {
-        $command = $this->s3Client->getCommand('GetObject', [
-            'Bucket' => env('AWS_BUCKET'),
-            'Key' => ltrim($path, "/")
-        ]);
-        $request = $this->s3Client->createPresignedRequest($command, "+{$duration} minutes");
-        $file = (string)$request->getUri();
-        return $file;
-    }
+//    public function awsFilePath($path, $duration = 5) {
+//        $command = $this->s3Client->getCommand('GetObject', [
+//            'Bucket' => env('AWS_BUCKET'),
+//            'Key' => ltrim($path, "/")
+//        ]);
+//        $request = $this->s3Client->createPresignedRequest($command, "+{$duration} minutes");
+//        $file = (string)$request->getUri();
+//        return $file;
+//    }
 }

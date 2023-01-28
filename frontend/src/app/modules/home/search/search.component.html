@@ -1,0 +1,47 @@
+<style>
+  .search-content {
+    padding: 50px 0px;
+  }
+
+  .search-content h1 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 32px;
+  }
+
+  .search-content h1.title {
+    padding: 0 40px;
+    font-weight: 500;
+  }
+
+  .search-content h1.title span {
+    font-style: italic;
+  }
+</style>
+
+
+<app-layout-site>
+  <router-outlet>
+    <div class="search-content">
+      <h1 class="title">Search Result For "<span>{{keyword}}</span>"</h1>
+      <div class="actor-list-container" *ngIf="lstActor.length > 0">
+        <h1 class="actor-list-title">Actor</h1>
+        <app-actor-carousel [lstActor]="lstActor"></app-actor-carousel>
+      </div>
+      <div class="movie-list-container" *ngIf="lstMovie.length > 0">
+        <h1 class="movie-list-title">Movie</h1>
+        <div class="movie-list-wrapper">
+          <app-movie-carousel [lstPoster]="lstMovie" ></app-movie-carousel>
+        </div>
+      </div>
+      <div class="movie-list-container" *ngIf="lstTvShow.length > 0">
+        <h1 class="movie-list-title">TvShow</h1>
+        <div class="movie-list-wrapper">
+          <app-movie-carousel [lstPoster]="lstTvShow" ></app-movie-carousel>
+        </div>
+      </div>
+    </div>
+
+
+  </router-outlet>
+</app-layout-site>

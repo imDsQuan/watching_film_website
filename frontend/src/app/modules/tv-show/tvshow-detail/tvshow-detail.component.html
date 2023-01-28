@@ -162,6 +162,8 @@
               <p class="description">{{tvShow?.description}}</p>
               <div class="feature-button">
                 <button class="btn btn-watch-trailer" (click)="openPopup()"> Watch Trailer <i class="fas fa-film"></i></button>
+                <button class="btn btn-watch-trailer ml-3" (click)="addToMyList()"> Add To My List <i class="fas fa-plus"></i></button>
+
               </div>
             </div>
           </div>
@@ -184,15 +186,15 @@
         </div>
         <div class="episode-container">
           <div class="episode-item" *ngFor="let episode of season?.episode">
-            <a class="text-white text-decoration-none" href="/tvshow/{{slug}}/episode/{{episode.id}}">
+            <a class="text-white text-decoration-none" (click)="watchMovie(episode)">
               <div class="episode-img">
                 <img src="{{episode.img_url}}" alt="">
               </div>
             </a>
             <div class="episode-info">
               <div class="episode-title-box">
-                <a class="text-white text-decoration-none" href="/tvshow/{{slug}}/episode/{{episode.id}}"><h3 class="episode-title">{{episode.title}}</h3></a>
-                <h4 class="episode-duration">40m</h4>
+                <button style="background: none;border: none;" class="text-white text-decoration-none border-0" (click)="watchMovie(episode)"><h3 class="episode-title">{{episode.title}}</h3></button>
+                <h4 class="episode-duration">{{episode.duration}}m</h4>
               </div>
               <div class="episode-description">
                 <p>{{episode.description}}</p>

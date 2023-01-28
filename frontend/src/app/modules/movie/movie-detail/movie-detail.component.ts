@@ -1,5 +1,5 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MovieService} from "../../../core/services/movie/movie.service";
 import {Poster} from "../../../shared/models/poster/poster";
 import {Genre} from "../../../shared/models/genre/Genre";
@@ -10,6 +10,9 @@ import {UserService} from "../../../core/services/auth/user/user.service";
 import {MyListService} from "../../../core/services/myList/my-list.service";
 import {ToastrService} from "ngx-toastr";
 import {User} from "../../../shared/models/user/User";
+import {
+  PaymentWarningPopupComponent
+} from "../../../shared/components/payment-warning-popup/payment-warning-popup.component";
 
 
 @Component({
@@ -32,6 +35,7 @@ export class MovieDetailComponent implements OnInit {
     private User: UserService,
     private MyList: MyListService,
     private toastr: ToastrService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -82,5 +86,23 @@ export class MovieDetailComponent implements OnInit {
 
   handleResponse(data: any) {
 
+  }
+
+  watchMovie() {
+
+    let dateNow = new Date();
+
+    let sub = this.user?.subscription;
+
+    if(!sub) {
+      this.dialogRef.open(PaymentWarningPopupComponent);
+    }
+    else {
+      if (dateNow > new Date(sub.expired_date)) {
+        this.dialogRef.open(PaymentWarningPopupComponent);
+      } else {
+        this.router.navigateByUrl(`/movie/${this.slug}/player`)
+      }
+    }
   }
 }

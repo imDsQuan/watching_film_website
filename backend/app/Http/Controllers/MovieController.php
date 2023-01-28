@@ -667,6 +667,7 @@ class MovieController extends Controller
             $mediaPoster = $this->mediaRepo->find($movie->poster_id);
             $movie->coverImg = $mediaCover['url'];
             $movie->posterImg = $mediaPoster['url'];
+            $movie->genre = $this->posterGenresRepo->getMovieGenreId($movie->id)->toArray();
         }
 
         return $listMovie;
@@ -688,6 +689,18 @@ class MovieController extends Controller
     {
         $lstGenres = $this->posterRepo->getGenres($slug);
         return $lstGenres;
+    }
+
+    public function getMovieByActor($id)
+    {
+        $movie = $this->posterRepo->getByActorId($id);
+        $mediaCover = $this->mediaRepo->find($movie->cover_id);
+        $mediaPoster = $this->mediaRepo->find($movie->poster_id);
+        $source = $this->mediaRepo->find($movie->trailer_id);
+        $movie->coverImg = $mediaCover['url'];
+        $movie->posterImg = $mediaPoster['url'];
+        $movie->trailer = $source['url'];
+        return $movie;
     }
 
     public function getCastBySlug($slug)
@@ -720,17 +733,8 @@ class MovieController extends Controller
         foreach($lstMovie as $movie) {
             $this->sourceRepo->create([
                 'poster_id' => $movie->id,
-                'type' => 'FILE',
-                'url' => 'https://d14jyu72kj34fe.cloudfront.net/videos/Avatar_+The+Way+of+Water+_+Official+Trailer.mp4',
-                'quality' => '1080',
-                'title' => $movie->title,
-                'create_at' => Carbon::now(),
-            ]);
-
-            $this->sourceRepo->create([
-                'poster_id' => $movie->id,
-                'type' => 'Youtube',
-                'url' => 'https://www.youtube.com/embed/d9MyW72ELq0',
+                'type' => 'MP4',
+                'url' => 'https://d14jyu72kj34fe.cloudfront.net/videos/THE%20WITCHER%20_%20MAIN%20TRAILER%20_%20NETFLIX.mp4',
                 'quality' => '1080',
                 'title' => $movie->title,
                 'create_at' => Carbon::now(),
@@ -740,5 +744,18 @@ class MovieController extends Controller
         return $this->responseData();
     }
 
+
+    public function searchMovie(Request $request)
+    {
+        $keyword = $request->keyword;
+        $listMovie = $this->posterRepo->getMovieByKeyword($keyword)->toArray();
+        foreach ($listMovie as &$movie) {
+            $mediaCover = $this->mediaRepo->find($movie->cover_id);
+            $mediaPoster = $this->mediaRepo->find($movie->poster_id);
+            $movie->coverImg = $mediaCover['url'];
+            $movie->posterImg = $mediaPoster['url'];
+        }
+        return $listMovie;
+    }
 
 }

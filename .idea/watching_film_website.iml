@@ -138,10 +138,15 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/pion/laravel-chunk-upload" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/fruitcake/php-cors" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/paypal/rest-api-sdk-php" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/paragonie/sodium_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/pusher/pusher-php-server" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/laravel/socialite" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/league/oauth1-client" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="@types/jquery" level="application" />
     <orderEntry type="library" name="017eaf7e3f" level="application" />
+    <orderEntry type="library" name="pusher" level="application" />
   </component>
 </module>

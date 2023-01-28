@@ -21,6 +21,10 @@ export class MyListService {
     return this.http.post(`${this.baseUrl}/addToList`, data);
   }
 
+  removeFromList(data: any) {
+    return this.http.post(`${this.baseUrl}/remove`, data);
+  }
+
   getAll(data: any) {
     return this.http.post<Poster[]>(`${this.baseUrl}/getAll`, data);
   }

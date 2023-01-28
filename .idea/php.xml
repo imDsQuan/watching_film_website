@@ -132,6 +132,10 @@
       <path value="$PROJECT_DIR$/backend/vendor/pion/laravel-chunk-upload" />
       <path value="$PROJECT_DIR$/backend/vendor/fruitcake/php-cors" />
       <path value="$PROJECT_DIR$/backend/vendor/paypal/rest-api-sdk-php" />
+      <path value="$PROJECT_DIR$/backend/vendor/paragonie/sodium_compat" />
+      <path value="$PROJECT_DIR$/backend/vendor/pusher/pusher-php-server" />
+      <path value="$PROJECT_DIR$/backend/vendor/laravel/socialite" />
+      <path value="$PROJECT_DIR$/backend/vendor/league/oauth1-client" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

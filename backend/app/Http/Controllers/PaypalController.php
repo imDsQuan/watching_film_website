@@ -7,6 +7,7 @@ use Illuminate\Http\File;
 use App\Http\Controllers\Controller;
 
 use PayPal\Api\Plan;
+use PayPal\Exception\PayPalConnectionException;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Payment;
@@ -24,9 +25,14 @@ class PaypalController extends Controller
         $this->_api_context->setConfig(config('paypal'));
     }
 
-    public function create()
+    public function checkout(Request $request)
     {
-        $plan = new Plan();
 
+        try {
+            $payment = Payment::get($request->get('id'), $this->_api_context);
+            return $payment;
+        } catch (PayPalConnectionException $e) {
+            return $e;
+        }
     }
 }

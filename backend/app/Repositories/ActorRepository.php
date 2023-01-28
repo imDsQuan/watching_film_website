@@ -45,4 +45,11 @@ class ActorRepository extends EloquentRepository
 
     }
 
+    public function searchActor($keyword)
+    {
+        return DB::table('tbl_actor')
+            ->where('name', 'like', '%'.$keyword.'%')
+            ->first();
+    }
+
 }

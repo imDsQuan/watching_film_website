@@ -11,18 +11,30 @@ import { PaymentComponent } from './payment/payment.component';
 import { RequestResetComponent } from './password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './password/response-reset/response-reset.component';
 import { MylistComponent } from './mylist/mylist.component';
+import { PaymentDetailComponent } from './payment/payment-detail/payment-detail.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
+import { SearchComponent } from './search/search.component';
+import {OAuthModule} from "angular-oauth2-oidc";
+import {HttpClientModule} from "@angular/common/http";
+import { LoginWithGoogleComponent } from './login-with-google/login-with-google.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     SignupComponent,
-    LoginComponent,
     SignupComponent,
+    LoginComponent,
     PaymentComponent,
     RequestResetComponent,
     ResponseResetComponent,
-    MylistComponent
+    MylistComponent,
+    PaymentDetailComponent,
+    ProfileComponent,
+    ProfileEditComponent,
+    SearchComponent,
+    LoginWithGoogleComponent
   ],
     imports: [
         CommonModule,
@@ -30,7 +42,8 @@ import { MylistComponent } from './mylist/mylist.component';
         ThemeModule,
         SharedModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule,
     ],
   exports: [
   ],

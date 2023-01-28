@@ -2,10 +2,16 @@
 
 use App\Http\Controllers\ActorController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\NotificaitionController;
+use App\Http\Controllers\PackController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TvShowController;
+use App\Http\Controllers\UserController;
+use App\Repositories\PackRepository;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,13 +31,18 @@ Route::get('logout', [LoginController::class, 'getLogout']);
 Route::post('login', [LoginController::class, 'postLogin']);
 
 Route::group(['middleware' => ['CheckAdminLogin', 'CORS']], function() {
-    Route::get('/', function() {
-        return view('pages.home')->with('title', 'Dashboard');
-    });
+    Route::resource('/', DashboardController::class);
     Route::post('actor/update', [ActorController::class,'update']);
     Route::post('actor/delete/{id}', [ActorController::class, 'destroy']);
     Route::post('actor/search', [ActorController::class,'search']);
     Route::resource('actor', ActorController::class);
+
+    Route::post('pack/update', [PackController::class,'update']);
+    Route::post('pack/delete/{id}', [PackController::class, 'destroy']);
+    Route::resource('pack', PackController::class);
+    Route::post('get-pack', [PackController::class, 'getGenre']);
+    Route::get('/pack/{id}/up', [PackController::class, 'upAction']);
+    Route::get('/pack/{id}/down', [PackController::class, 'downAction']);
 
 
     Route::post('genre/update', [GenreController::class,'update']);
@@ -108,6 +119,12 @@ Route::group(['middleware' => ['CheckAdminLogin', 'CORS']], function() {
     Route::post('tvShow/delete/{id}', [TvShowController::class, 'destroy']);
     Route::post('tvShow/search', [TvShowController::class,'search']);
     Route::resource('tvShow', TvShowController::class);
+
+    Route::resource('user', UserController::class);
+
+    Route::resource('payment', PaymentController::class);
+
+    Route::resource('notification', NotificaitionController::class);
 
 
 });

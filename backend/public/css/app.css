@@ -14,16 +14,6 @@
     --black2: #999;
 }
 
-.flex {
-    display: flex;
-}
-
-.flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 body {
     min-height: 100vh;
     overflow-x: hidden;
@@ -286,7 +276,6 @@ body {
 
 .details .recentOrders {
     position: relative;
-    display: grid;
     min-height: 500px;
     background: var(--white);
     padding: 20px;

@@ -12,23 +12,55 @@
           <li routerLink="/movie/all" class="menu-list-item">Movie</li>
           <li routerLink="/tvshow/all" class="menu-list-item">TV Show</li>
           <li routerLink="/my-list" class="menu-list-item">My List</li>
+          <li routerLink="/actor" class="menu-list-item">Actor</li>
         </ul>
       </div>
     </div>
-    <div class="profile-container">
-      <img class="profile-picture" src="assets/images/profile.jpg" alt="">
-      <div class="profile-text-container">
-        <span class="profile-text">{{user?.full_name}}</span>
-        <i class="fas fa-caret-down"></i>
-        <ul class="profile-menu">
-          <li class="profile-menu-item"><i class="fas fa-user"></i> Profile</li>
-          <li class="profile-menu-item" (click)="logout($event)" ><i class="fas fa-sign-out-alt"></i> Sign Out</li>
-        </ul>
+    <div class="user-section">
+      <div class="profile-container">
+        <div class="profile-picture" style="object-fit: cover">
+          <img src="{{user?.image}}" alt="" style="width: 100%; height: 100%; object-fit: cover">
+        </div>
+        <div class="profile-text-container">
+          <span class="profile-text">{{user?.full_name}}</span>
+          <i class="fas fa-caret-down"></i>
+          <ul class="profile-menu">
+            <li class="profile-menu-item" (click)="navToProfile()"><i class="fas fa-user"></i> Profile</li>
+            <li class="profile-menu-item" (click)="logout($event)" ><i class="fas fa-sign-out-alt"></i> Sign Out</li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="search-box">
-      <input class="search-txt" type="text" name="" placeholder="Type to search">
-      <a class="search-btn" href=""><i class="fas fa-search"></i></a>
+      <div class="notification" (click)="toggleNoti()">
+        <i class="fas fa-bell mr-3"></i>
+      </div>
+      <div class="notifi-box " id="box" #notiBox>
+        <h2><a class="btn btn-secondary btn-mark" (click)="onMarkAsRead()">Mark All As Read</a></h2>
+        <div #spinner class="flex-center m-2" >
+          <mat-spinner ></mat-spinner>
+        </div>
+
+        <div class="notifi-not-found" #notiNotFound>
+          <i class="fas fa-bell"></i>
+          <div class="title">No Notification yet</div>
+          <div class="sub-title">Where you get notification, they 'll show up here</div>
+        </div>
+
+        <div *ngFor="let noti of lstNotification" class="notifi-item">
+          <div class="img">
+            <img *ngIf="!noti.data.data.image" src="/assets/images/hd-green-notification-bell-icon-transparent-png-1163898502733of1cgqav.png" alt="img">
+            <img *ngIf="noti.data.data.image" src="{{noti.data.data.image}}" alt="img">
+          </div>
+          <div class="text">
+            <h4>{{noti.data.data.title}}</h4>
+            <p>{{noti.data.data.message}}</p>
+          </div>
+        </div>
+      </div>
+
+        <div class="search-box">
+        <input class="search-txt" type="text" name="" placeholder="Type to search" [(ngModel)]="keyword" (keyup)="onSearch($event)" required>
+        <a class="search-btn" href="#"><i class="fas fa-search"></i></a>
+      </div>
     </div>
   </div>
   <ul *ngIf="active" id="menu-list-toggle" class="menu-list-toggle">

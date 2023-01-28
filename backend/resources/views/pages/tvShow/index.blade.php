@@ -28,7 +28,7 @@
 
         <div class="container">
             <div class="row flex-center">
-                <a href="/tvShow" class="col-3 text-decoration-none">
+                <a href="/tvShow" class="col text-decoration-none">
                     <div class="card m-2 bg-primary p-2">
                         <div class="card-body d-flex justify-content-center align-content-center text-white">
                             <ion-icon name="refresh-outline" style="font-size: 32px;"></ion-icon>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="#" class="col-3 text-decoration-none">
+                <a href="#" class="col text-decoration-none">
                     <div class="card m-2 bg-info p-2">
                         <div class="card-body d-flex justify-content-center align-content-center text-white">
                             <ion-icon name="tv-outline" style="font-size: 32px; margin-right: 5px;"></ion-icon>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="/tvShow/create" class="col-3 text-decoration-none">
+                <a href="/tvShow/create" class="col text-decoration-none">
                     <div class="card m-2 bg-success p-2">
                         <div class="card-body d-flex justify-content-center align-content-center text-white">
                             <ion-icon name="add-circle-outline" style="font-size: 32px;"></ion-icon>
@@ -211,7 +211,7 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title text-center">` + data.data.data[count].title + `</h5>
                                                     <div class="d-flex justify-content-center align-items-center">
-                                                        <a href=" /movie/` + data.data.data[count].slug + `/edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
+                                                        <a href=" /tvShow/` + data.data.data[count].slug + `/edit" class="btn btn-warning mr-2"><ion-icon name="build-outline"></ion-icon></a>
                                                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="showData(` + data.data.data[count].id + `)"><ion-icon name="trash-outline"></ion-icon></button>
                                                     </div>
                                                 </div>

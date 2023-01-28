@@ -134,23 +134,23 @@
       </span>
     </div>
     <div class="notif-body">
-      <div class="row">
-        <div class="col-sm-6 col-xs-6">
-          <button class="btn btn-block btn-facebook">
-            <i class="fab fa-facebook-f"></i>
-            Facebook
-          </button>
-        </div>
-        <div class="col-sm-6 col-xs-6">
-          <button class="btn btn-block btn-google">
-            <i class="fab fa-google"></i>
-            Google
-          </button>
-        </div>
-      </div>
-      <div class="or">
-        <span>OR</span>
-      </div>
+<!--      <div class="row">-->
+<!--        <div class="col-sm-6 col-xs-6">-->
+<!--          <button class="btn btn-block btn-facebook">-->
+<!--            <i class="fab fa-facebook-f"></i>-->
+<!--            Facebook-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <div class="col-sm-6 col-xs-6">-->
+<!--          <button class="btn btn-block btn-google">-->
+<!--            <i class="fab fa-google"></i>-->
+<!--            Google-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="or">-->
+<!--        <span>OR</span>-->
+<!--      </div>-->
       <form action="#" #signUpForm=ngForm (ngSubmit)="onSubmit()">
         <div class="form-group">
           <input class="form-control input-field" type="text" placeholder="Full Name" required [(ngModel)]="form.full_name" name="full_name">
@@ -163,6 +163,9 @@
           <div class="alert alert-danger" [hidden]="!error.email">
             {{error.email}}
           </div>
+        </div>
+        <div class="form-group">
+          <input class="form-control input-field" type="text" placeholder="Enter your phone" required [(ngModel)]="form.phone" name="phone">
         </div>
         <div class="form-group">
           <input class="form-control input-field" type="text" placeholder="Enter your username" required [(ngModel)]="form.username" name="username">

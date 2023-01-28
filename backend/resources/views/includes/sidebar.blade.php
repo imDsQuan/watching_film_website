@@ -37,21 +37,27 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/user">
                 <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
                 <span class="title">User</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/notification">
                 <span class="icon"><ion-icon name="notifications-outline"></ion-icon></span>
                 <span class="title">Notification</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/payment">
                 <span class="icon"><ion-icon name="card-outline"></ion-icon></span>
                 <span class="title">Payment</span>
+            </a>
+        </li>
+        <li>
+            <a href="pack">
+                <span class="icon"><ion-icon name="briefcase-outline"></ion-icon></span>
+                <span class="title">Pack</span>
             </a>
         </li>
         <li>

@@ -6,7 +6,8 @@
         <p class="feature-desc">{{feature?.description}}</p>
 
         <div class="feature-button">
-          <a href="#"><button class="btn btn-watch-video"> Watch Now <i class="fas fa-play"></i></button> </a>
+          <a *ngIf="feature?.type == 'video'" href="/movie/{{feature?.slug}}" class="btn btn-watch-video"> Watch Now <i class="fas fa-play"></i></a>
+          <a *ngIf="feature?.type == 'tvShow'" href="/tvshow/{{feature?.slug}}" class="btn btn-watch-video"> Watch Now <i class="fas fa-play"></i></a>
           <a href="#"><button class="btn btn-watch-trailer"> Watch Trailer <i class="fas fa-film"></i></button> </a>
         </div>
       </div>

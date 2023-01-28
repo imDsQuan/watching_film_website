@@ -18,4 +18,15 @@ export class ActorService {
     return this.http.get<Actor[]>(`${this.baseUrl}/popular`);
   }
 
+  getAll() {
+    return this.http.get<Actor[]>(`${this.baseUrl}/getAll`);
+  }
+
+  getActor(id: any) {
+    return this.http.post<Actor>(`${this.baseUrl}/getActor`, {id :  id});
+  }
+
+  search(keyword: string | null) {
+    return this.http.post<Actor[]>(`${this.baseUrl}/search`, {'keyword' : keyword})
+  }
 }

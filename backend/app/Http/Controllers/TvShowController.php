@@ -1015,6 +1015,7 @@ class TvShowController extends Controller
             $mediaPoster = $this->mediaRepo->find($tvShow->poster_id);
             $tvShow->coverImg = $mediaCover['url'];
             $tvShow->posterImg = $mediaPoster['url'];
+            $tvShow->genre = $this->posterGenresRepo->getMovieGenreId($tvShow->id)->toArray();
         }
 
         return $listTvShow;
@@ -1120,5 +1121,18 @@ class TvShowController extends Controller
     public function getSourceBySlug($slug, $episodeId)
     {
         return $this->sourceRepo->getSourceByEpisodeId($episodeId);
+    }
+
+    public function searchTvShow(Request $request)
+    {
+        $keyword = $request->keyword;
+        $listMovie = $this->posterRepo->getTvShowByKeyword($keyword)->toArray();
+        foreach ($listMovie as &$movie) {
+            $mediaCover = $this->mediaRepo->find($movie->cover_id);
+            $mediaPoster = $this->mediaRepo->find($movie->poster_id);
+            $movie->coverImg = $mediaCover['url'];
+            $movie->posterImg = $mediaPoster['url'];
+        }
+        return $listMovie;
     }
 }

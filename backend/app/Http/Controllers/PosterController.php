@@ -150,4 +150,22 @@ class PosterController extends Controller
         }
         return $lstPoster;
     }
+
+    public function getAllGenre()
+    {
+        $lstGenre = $this->genreRepo->getAll()->toArray();
+        return $lstGenre;
+    }
+
+    public function getByActor($id)
+    {
+        $lstPoster = $this->posterRepo->getByActorId($id);
+        foreach ($lstPoster as $poster) {
+            $mediaCover = $this->mediaRepo->find($poster->cover_id);
+            $mediaPoster = $this->mediaRepo->find($poster->poster_id);
+            $poster->coverImg = $mediaCover->url;
+            $poster->posterImg = $mediaPoster->url;
+        }
+        return $lstPoster;
+    }
 }

@@ -43,4 +43,8 @@ export class TvshowService {
   getSource(slug: string | null, episodeId: string | null) {
     return this.http.get<Source[]>(`${this.baseUrl}/${slug}/episode/${episodeId}/source`)
   }
+
+  search(keyword: string | null) {
+    return this.http.post<Poster[]>(`${this.baseUrl}/search`, {'keyword' : keyword})
+  }
 }

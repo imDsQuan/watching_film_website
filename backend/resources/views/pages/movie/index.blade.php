@@ -28,7 +28,7 @@
 
         <div class="container">
             <div class="row flex-center">
-                <a href="/movie" class="col-3 text-decoration-none">
+                <a href="/movie" class="col text-decoration-none">
                     <div class="card m-2 bg-primary p-2">
                         <div class="card-body d-flex justify-content-center align-content-center text-white">
                             <ion-icon name="refresh-outline" style="font-size: 32px;"></ion-icon>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="#" class="col-3 text-decoration-none">
+                <a href="#" class="col text-decoration-none">
                     <div class="card m-2 bg-info p-2">
                         <div class="card-body d-flex justify-content-center align-content-center text-white">
                             <ion-icon name="videocam-outline" style="font-size: 32px;"></ion-icon>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="/movie/create" class="col-3 text-decoration-none">
+                <a href="/movie/create" class="col text-decoration-none">
                     <div class="card m-2 bg-success p-2">
                         <div class="card-body d-flex justify-content-center align-content-center text-white">
                             <ion-icon name="add-circle-outline" style="font-size: 32px;"></ion-icon>

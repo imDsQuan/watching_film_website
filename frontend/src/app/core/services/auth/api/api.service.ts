@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {TokenService} from "../token/token.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
+    private Token: TokenService,
   ) {}
 
   signup(data : any) {
@@ -26,5 +28,18 @@ export class ApiService {
 
   changePassword(data : any) {
     return this.http.post(`${this.baseUrl}/resetPassword`, data);
+  }
+
+  logout() {
+    let header = new HttpHeaders().set("Authorization", 'Bearer ' + this.Token.get());
+    return this.http.get(`${this.baseUrl}/logout`, {headers: header});
+  }
+
+  loginWithGoogle(token: any){
+    return this.http.post(`${this.baseUrl}/login-with-google`, {'token' : token});
+  }
+
+  loginWithFacebook(token: any) {
+    return this.http.post(`${this.baseUrl}/login-with-facebook`, {'token' : token});
   }
 }

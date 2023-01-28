@@ -1,0 +1,110 @@
+<style>
+
+  .profile-header-bg {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    background-attachment: fixed;
+  }
+
+  .profile-header {
+    margin-top: 20px;
+    padding: 40px 30px;
+    background: linear-gradient(0deg, #000010 0%, rgba(0, 0, 0, 0) 99%);
+    border-radius: 5px
+  }
+
+  .profile-header .profile-img {
+    box-shadow: 0px 0px 10px black;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .profile-header .profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .profile-header .profile-name {
+    font-size: 40px;
+    line-height: 40px;
+    font-weight: 600;
+  }
+
+  .profile-detail {
+    padding: 20px 0;
+  }
+
+  .profile-detail .profile-control {
+    width: 100%;
+    background: #ffffff20;
+    color: #b3b3b3 !important;
+    border-radius: 8px;
+  }
+
+  .profile-detail .profile-control i {
+    margin-right: 8px;
+  }
+
+  .profile-detail .profile-title {
+    font-size: 36px;
+    line-height: 36px;
+    font-weight: 600;
+  }
+
+  .profile-detail .label {
+    font-size: 16px;
+  }
+
+  .separate-line {
+    background-color: #585858;
+    width: 100%;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    height: 1px;
+  }
+
+  ::ng-deep .movie-list-container .movie-list-wrapper {
+    padding: 0;
+  }
+</style>
+<app-layout-site>
+  <router-outlet>
+    <div class="container">
+      <div class="profile-header-bg" [ngStyle]="{'background-image': 'url('+ actor?.img +')'}">
+        <div class="profile-header">
+          <div class="row flex-center align-items-end">
+            <div class="col-3">
+              <div class="profile-img">
+                <img src="{{actor?.img}}" alt="">
+              </div>
+            </div>
+            <div class="col">
+              <h3 class="profile-name">{{actor?.name}}</h3>
+              <span class="font-weight-bold">{{actor?.type}} • {{actor?.born}} • {{actor?.height}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-detail">
+        <div class="profile-bio">
+          <h3 class="profile-title">Bio</h3>
+          <p [ngStyle]="{'color': '#b3b3b3', 'font-size' : '16px', 'text-align': 'justify'}">{{actor?.bio}}</p>
+        </div>
+      </div>
+      <div class="profile-detail">
+        <div class="profile-bio">
+          <h3 class="profile-title">Filmography</h3>
+        </div>
+        <div class="movie-list-container">
+          <div class="movie-list-wrapper">
+            <app-movie-carousel [lstPoster]="lstMovie"></app-movie-carousel>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </router-outlet>
+</app-layout-site>

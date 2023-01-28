@@ -36,12 +36,12 @@ class PosterRepository extends EloquentRepository
 
     public function paginateMovie($limit, float $offset)
     {
-        return DB::table('tbl_poster')->where('type', 'like', '%video%')->skip($offset)->take($limit)->get();
+        return DB::table('tbl_poster')->where('type', 'like', '%video%')->skip($offset)->take($limit)->orderBy('id', 'desc')->get();
     }
 
     public function paginateTvShow($limit, float $offset)
     {
-        return DB::table('tbl_poster')->where('type', 'like', '%tvShow%')->skip($offset)->take($limit)->get();
+        return DB::table('tbl_poster')->where('type', 'like', '%tvShow%')->skip($offset)->take($limit)->orderBy('id', 'desc')->get();
     }
 
     public function getMovieBySlug($slug)
@@ -91,7 +91,7 @@ class PosterRepository extends EloquentRepository
             ->leftJoin('tbl_poster', 'tbl_poster_genres.poster_id', '=', 'tbl_poster.id')
             ->select('tbl_poster.*')
             ->where('tbl_genre.title', 'like', '%'.$genre.'%')
-            ->orderBy('tbl_poster.id', 'desc')
+            ->inRandomOrder()
             ->take(10)
             ->get();
     }
@@ -154,6 +154,20 @@ class PosterRepository extends EloquentRepository
             ->distinct()
             ->take(10)
             ->get();
+    }
+
+    public function getByActorId($id)
+    {
+        return DB::table('tbl_role')
+            ->join('tbl_poster', 'tbl_poster.id', '=', 'tbl_role.poster_id')
+            ->where('tbl_role.actor_id', '=', $id)
+            ->select('tbl_poster.*')
+            ->distinct()
+            ->get();
+    }
+
+    public function getByActor($id)
+    {
     }
 
 

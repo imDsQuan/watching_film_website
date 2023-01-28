@@ -36,9 +36,10 @@ class ActorController extends Controller
             ]);
     }
 
-    public function getActor(Request $request) {
-        $limit     = $request->input('limit', 1);
-        $page      = $request->input('page', 1);
+    public function getActor(Request $request)
+    {
+        $limit = $request->input('limit', 1);
+        $page = $request->input('page', 1);
         $offset = ($page - 1) * $limit;
 
         $listActor = $this->actorRepo->paginate($limit, $offset)->toArray();
@@ -49,10 +50,10 @@ class ActorController extends Controller
         }
 
         $this->message = 'Lấy bài viêt thành công';
-        $this->status  = 'success';
+        $this->status = 'success';
 
-        $data          = [
-            'data'  => $listActor,
+        $data = [
+            'data' => $listActor,
             'total' => $total,
         ];
         return $this->responseData($data);
@@ -75,7 +76,7 @@ class ActorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -91,7 +92,7 @@ class ActorController extends Controller
                 'type' => $request->type,
                 'born' => $request->born,
                 'height' => $request->height,
-                'slug' => Str::slug($request->name).Carbon::now()->timestamp,
+                'slug' => Str::slug($request->name) . Carbon::now()->timestamp,
             );
 
             $this->actorRepo->create($actor);
@@ -108,7 +109,7 @@ class ActorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -119,7 +120,7 @@ class ActorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($slug)
@@ -137,8 +138,8 @@ class ActorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function update(Request $request)
@@ -176,7 +177,7 @@ class ActorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
@@ -199,13 +200,13 @@ class ActorController extends Controller
         $file = $request->file('file-thumbnail');
         $extension = $file->getClientOriginalExtension();
         $type = $file->getMimeType();
-        $fileName = $file->getFilename().Carbon::now()->timestamp;
+        $fileName = $file->getFilename() . Carbon::now()->timestamp;
 
         $filePath = Storage::putFileAs('files/images', $file, $fileName);
 
         $media = array(
             'title' => basename($fileName),
-            'url' => env('AWS_URL').'/images/'.$fileName,
+            'url' => env('AWS_URL') . '/images/' . $fileName,
             'extension' => $extension,
             'date' => Carbon::now(),
             'type' => $type,
@@ -217,7 +218,8 @@ class ActorController extends Controller
         return $this->mediaRepo->create($media);
     }
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         $keyword = $request->keyword;
         $listActor = $this->actorRepo->getActorByKeyword($keyword)->toArray();
         $total = count($listActor);
@@ -227,10 +229,10 @@ class ActorController extends Controller
         }
 
         $this->message = 'Lấy bài viết thành công';
-        $this->status  = 'success';
+        $this->status = 'success';
 
-        $data          = [
-            'data'  => $listActor,
+        $data = [
+            'data' => $listActor,
             'total' => $total,
         ];
         return $this->responseData($data);
@@ -244,6 +246,35 @@ class ActorController extends Controller
             $actor->img = $media['url'];
         }
         return $lstActor;
+    }
+
+    public function getAll()
+    {
+        $lstActor = $this->actorRepo->getAll()->toArray();
+        foreach ($lstActor as &$actor) {
+            $media = $this->mediaRepo->find($actor['media_id']);
+            $actor['img'] = $media['url'];
+        }
+        return $lstActor;
+    }
+
+    public function getActorById(Request $request)
+    {
+        $actor = $this->actorRepo->find($request->id);
+        $media = $this->mediaRepo->find($actor->media_id);
+        $actor->img = $media['url'];
+        return $actor;
+    }
+
+    public function searchActor(Request $request)
+    {
+        $keyword = $request->keyword;
+        $listActor = $this->actorRepo->getActorByKeyword($keyword)->toArray();
+        foreach ($listActor as &$actor) {
+            $media = $this->mediaRepo->find($actor->media_id);
+            $actor->img = $media['url'];
+        }
+        return $listActor;
     }
 
 }

@@ -1,5 +1,46 @@
+<style>
+  .title {
+    font-size: 50px;
+    line-height: 40px;
+    font-weight: 600;
+    margin: 40px;
+  }
+
+  ::ng-deep .actor-list-item {
+    width: 190px;
+    height: 300px;
+  }
+
+  ::ng-deep .actor-list-item .actor-img {
+    width: 190px;
+    height: 220px;
+    border-radius: 12px !important;
+  }
+</style>
 <app-layout-site>
   <router-outlet>
-    <p>asdflkjasdl;fjasd;lf</p>
+    <div class="container">
+      <h3 class="title">All Actor</h3>
+      <div class="actor-box flex-center flex-wrap">
+        <a class="text-decoration-none text-white" *ngFor="let actor of lstActor |  paginate: config"  href="/actor/{{actor.id}}">
+          <app-actor-item class="actor-list-item" [actor]="actor" >
+          </app-actor-item>
+        </a>
+      </div>
+      <div class="flex-center mt-5">
+        <pagination-controls [id]="config.id"
+                             [maxSize]="maxSize"
+                             [directionLinks]="directionLinks"
+                             [autoHide]="autoHide"
+                             [responsive]="responsive"
+                             [previousLabel]="labels.previousLabel"
+                             [nextLabel]="labels.nextLabel"
+                             [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+                             [screenReaderPageLabel]="labels.screenReaderPageLabel"
+                             [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+                             (pageChange)="onPageChange($event)"
+                             (pageBoundsCorrection)="onPageBoundsCorrection($event)"></pagination-controls>
+      </div>
+    </div>
   </router-outlet>
 </app-layout-site>

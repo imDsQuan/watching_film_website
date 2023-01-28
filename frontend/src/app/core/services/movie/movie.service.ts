@@ -40,4 +40,8 @@ export class MovieService {
   getSource(slug: string | null) {
     return this.http.get<Source[]>(`${this.baseUrl}/${slug}/source`) ;
   }
+
+  search(keyword: string | null) {
+    return this.http.post<Poster[]>(`${this.baseUrl}/search`, {'keyword' : keyword})
+  }
 }

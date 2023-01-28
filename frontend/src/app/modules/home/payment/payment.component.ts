@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {PackService} from "../../../core/services/pack/pack.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-payment',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentComponent implements OnInit {
 
-  constructor() { }
+  lstPack: any;
 
-  ngOnInit(): void {
+
+  constructor(
+    private Pack : PackService,
+    private router: Router,
+  ) {
   }
 
+  ngOnInit(): void {
+
+    this.Pack.getAll().subscribe(
+      data => this.lstPack = data,
+    )
+  }
+
+
+  onPayment(id : number) {
+    this.router.navigateByUrl(`/payment/${id}`);
+  }
 }

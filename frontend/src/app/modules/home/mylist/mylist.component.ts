@@ -22,8 +22,23 @@ export class MylistComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.User.get();
     this.MyList.getAll(this.user).subscribe(
-      data => this.lstMovie = data,
+      data => {
+        console.log(data);
+        this.lstMovie = data
+      },
     )
   }
 
+  removeFromList(id: number | undefined) {
+    this.MyList.removeFromList({'item_id': id}).subscribe(
+      data => {
+        this.MyList.getAll(this.user).subscribe(
+          data => {
+            console.log(data);
+            this.lstMovie = data
+          },
+        )
+      }
+    )
+  }
 }

@@ -11,6 +11,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatDialogModule} from '@angular/material/dialog';
 import { TrailerPopUpComponent } from './components/trailer-pop-up/trailer-pop-up.component';
 import {SafePipe} from "./services/SafePipe";
+import { PaymentWarningPopupComponent } from './components/payment-warning-popup/payment-warning-popup.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {SafePipe} from "./services/SafePipe";
     CastItemComponent,
     ActorItemComponent,
     TrailerPopUpComponent,
-    SafePipe
+    SafePipe,
+    PaymentWarningPopupComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import {SafePipe} from "./services/SafePipe";
         MovieCarouselComponent,
         ActorCarouselComponent,
         MovieItemComponent,
-        SafePipe
+        SafePipe,
+        ActorItemComponent
     ]
 
 })

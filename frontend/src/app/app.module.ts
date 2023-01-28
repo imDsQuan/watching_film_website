@@ -9,6 +9,8 @@ import {HomeModule} from "./modules/home/home.module";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from "ngx-toastr";
+import {OAuthModule} from "angular-oauth2-oidc";
+import {LoginComponent} from "./modules/home/login/login.component";
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import {ToastrModule} from "ngx-toastr";
     NgbModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    OAuthModule.forRoot()
   ],
   providers: [],
   exports: [],

@@ -11,30 +11,47 @@
     padding: 6px;
     background-color: white;
   }
+
+  .title {
+    font-size: 50px;
+    line-height: 40px;
+    font-weight: 600;
+    margin: 40px;
+  }
 </style>
 <app-layout-site>
   <router-outlet>
     <div class="container-fluid">
-      <div class="row flex-center">
-        <div class="m-3 position-relative" *ngFor="let movie of lstMovie">
-          <div class="btn-delete"><i class="fas fa-trash"></i></div>
-          <app-movie-item [poster]="movie"></app-movie-item>
-        </div>
+      <div class="container">
+        <h1 class="title">My List</h1>
       </div>
-<!--      <div class="flex-center mt-5">-->
-<!--        <pagination-controls [id]="config.id"-->
-<!--                             [maxSize]="maxSize"-->
-<!--                             [directionLinks]="directionLinks"-->
-<!--                             [autoHide]="autoHide"-->
-<!--                             [responsive]="responsive"-->
-<!--                             [previousLabel]="labels.previousLabel"-->
-<!--                             [nextLabel]="labels.nextLabel"-->
-<!--                             [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"-->
-<!--                             [screenReaderPageLabel]="labels.screenReaderPageLabel"-->
-<!--                             [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"-->
-<!--                             (pageChange)="onPageChange($event)"-->
-<!--                             (pageBoundsCorrection)="onPageBoundsCorrection($event)"></pagination-controls>-->
-<!--      </div>-->
+      <div class="row flex-center">
+
+        <div class="" style="width: 1380px">
+          <div class="row" style="padding-left: 40px;">
+            <div class="m-3 position-relative" *ngFor="let movie of lstMovie">
+              <div class="btn-delete"><i class="fas fa-trash" (click)="removeFromList(movie.item_id)"></i></div>
+              <app-movie-item [poster]="movie"></app-movie-item>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <!--      <div class="flex-center mt-5">-->
+      <!--        <pagination-controls [id]="config.id"-->
+      <!--                             [maxSize]="maxSize"-->
+      <!--                             [directionLinks]="directionLinks"-->
+      <!--                             [autoHide]="autoHide"-->
+      <!--                             [responsive]="responsive"-->
+      <!--                             [previousLabel]="labels.previousLabel"-->
+      <!--                             [nextLabel]="labels.nextLabel"-->
+      <!--                             [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"-->
+      <!--                             [screenReaderPageLabel]="labels.screenReaderPageLabel"-->
+      <!--                             [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"-->
+      <!--                             (pageChange)="onPageChange($event)"-->
+      <!--                             (pageBoundsCorrection)="onPageBoundsCorrection($event)"></pagination-controls>-->
+      <!--      </div>-->
 
     </div>
   </router-outlet>

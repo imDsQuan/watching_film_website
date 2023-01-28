@@ -1,12 +1,42 @@
+<style>
+  ::ng-deep .mat-select-value-text {
+    color: #fff !important;
+  }
+
+  ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  ::ng-deep .mat-form-field-label {
+    color: #ccc;
+  }
+</style>
+
 <app-layout-site>
   <router-outlet>
     <div class="container-fluid">
+      <div class="container mt-4">
+        <mat-form-field appearance="fill">
+          <mat-label>Select Genre</mat-label>
+          <mat-select [(ngModel)]="selectedGenre" (selectionChange)="onChangeGenre($event)">
+            <mat-option *ngFor="let genre of lstGenre" [value]="genre.id">
+              {{genre.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <div class="row flex-center">
 
         <!--        {{ movie.title }}-->
-        <div class="m-3" *ngFor="let movie of lstMovie |  paginate: config">
-          <app-movie-item [poster]="movie"></app-movie-item>
+        <div class="" style="max-width: 1380px">
+          <div class="row" style="padding-left: 40px;">
+            <div class="m-3" *ngFor="let movie of lstMovieAll |  paginate: config">
+              <app-movie-item [poster]="movie"></app-movie-item>
+            </div>
+          </div>
         </div>
+
       </div>
       <div class="flex-center mt-5">
         <pagination-controls [id]="config.id"

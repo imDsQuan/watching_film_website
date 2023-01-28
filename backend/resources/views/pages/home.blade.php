@@ -24,34 +24,34 @@
         <div class="cardBox">
             <div class="cardElement">
                 <div class="">
-                    <div class="numbers">1,504</div>
-                    <div class="cardName">Daily Views</div>
+                    <div class="numbers">{{$totalMovie}}</div>
+                    <div class="cardName">Movie</div>
                 </div>
                 <div class="iconBx">
-                    <ion-icon name="eye-outline"></ion-icon>
+                    <ion-icon name="videocam-outline"></ion-icon>
                 </div>
             </div>
             <div class="cardElement">
                 <div class="">
-                    <div class="numbers">80</div>
-                    <div class="cardName">Sales</div>
+                    <div class="numbers">{{$totalTvShow}}</div>
+                    <div class="cardName">TvShow</div>
                 </div>
                 <div class="iconBx">
-                    <ion-icon name="cart-outline"></ion-icon>
+                    <ion-icon name="tv-outline"></ion-icon>
                 </div>
             </div>
             <div class="cardElement">
                 <div class="">
-                    <div class="numbers">284</div>
-                    <div class="cardName">Comments</div>
+                    <div class="numbers">{{$totalUser}}</div>
+                    <div class="cardName">User</div>
                 </div>
                 <div class="iconBx">
-                    <ion-icon name="chatbubbles-outline"></ion-icon>
+                    <ion-icon name="people-outline"></ion-icon>
                 </div>
             </div>
             <div class="cardElement">
                 <div class="">
-                    <div class="numbers">$7,482</div>
+                    <div class="numbers">${{$totalEarning}}</div>
                     <div class="cardName">Earning</div>
                 </div>
                 <div class="iconBx">
@@ -65,83 +65,30 @@
         <div class="details">
             <div class="recentOrders">
                 <div class="cardHeader">
-                    <h2>Recent Orders</h2>
-                    <a href="#" class="btn-view"> View All</a>
+                    <h2>Recent Subscription</h2>
+                    <a href="/payment" class="btn-view"> View All</a>
                 </div>
                 <table>
                     <thead>
                     <td>Name</td>
                     <td>Price</td>
-                    <td>Payment</td>
+                    <td>Pack</td>
                     <td>Status</td>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Star Refrigrator</td>
-                        <td> $1200</td>
-                        <td>Paid</td>
-                        <td><span class="status delivered">Delivered</span></td>
-                    </tr>
-                    <tr>
-                        <td>Star Refrigrator</td>
-                        <td> $1200</td>
-                        <td>Paid</td>
-                        <td><span class="status pending">Pending</span></td>
-                    </tr>
-                    <tr>
-                        <td>Star Refrigrator</td>
-                        <td> $1200</td>
-                        <td>Paid</td>
-                        <td><span class="status return">Return</span></td>
-                    </tr>
-                    <tr>
-                        <td>Star Refrigrator</td>
-                        <td> $1200</td>
-                        <td>Paid</td>
-                        <td><span class="status inprogress">In Progress</span></td>
-                    </tr>
-                    <tr>
-                        <td>Star Refrigrator</td>
-                        <td> $1200</td>
-                        <td>Paid</td>
-                        <td><span class="status delivered">Delivered</span></td>
-                    </tr>
-                    <tr>
-                        <td>Star Refrigrator</td>
-                        <td> $1200</td>
-                        <td>Paid</td>
-                        <td><span class="status delivered">Delivered</span></td>
-                    </tr>
-                    <tr>
-                        <td>Star Refrigrator</td>
-                        <td> $1200</td>
-                        <td>Paid</td>
-                        <td><span class="status delivered">Delivered</span></td>
-                    </tr>
-                    <tr>
-                        <td>Star Refrigrator</td>
-                        <td> $1200</td>
-                        <td>Paid</td>
-                        <td><span class="status delivered">Delivered</span></td>
-                    </tr>
-                    <tr>
-                        <td>Star Refrigrator</td>
-                        <td> $1200</td>
-                        <td>Paid</td>
-                        <td><span class="status delivered">Delivered</span></td>
-                    </tr>
-                    <tr>
-                        <td>Star Refrigrator</td>
-                        <td> $1200</td>
-                        <td>Paid</td>
-                        <td><span class="status delivered">Delivered</span></td>
-                    </tr>
-                    <tr>
-                        <td>Star Refrigrator</td>
-                        <td> $1200</td>
-                        <td>Paid</td>
-                        <td><span class="status delivered">Delivered</span></td>
-                    </tr>
+                    @foreach($lstRecentSubscription as $sub)
+                        <tr>
+                            <td>{{$sub->user->full_name}}</td>
+                            <td>{{$sub->price}}</td>
+                            <td>{{$sub->pack->title}}</td>
+                            @if($sub->status === 'COMPLETED')
+                                <td><span class="status delivered">{{$sub->status}}</span></td>
+                            @else
+                                <td><span class="status pending">{{$sub->status}}</span></td>
+                            @endif
+                        </tr>
+                    @endforeach
+
                     </tbody>
                 </table>
             </div>
@@ -153,86 +100,18 @@
                     <h2>Recent Customer</h2>
                 </div>
                 <table>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx">
-                                <img src="{{url('/images/avatar_default.png')}}" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <h4>David <br> <span>Italy</span></h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx">
-                                <img src="{{url('/images/avatar_default.png')}}" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <h4>David <br> <span>Italy</span></h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx">
-                                <img src="{{url('/images/avatar_default.png')}}" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <h4>David <br> <span>Italy</span></h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx">
-                                <img src="{{url('/images/avatar_default.png')}}" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <h4>David <br> <span>Italy</span></h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx">
-                                <img src="{{url('/images/avatar_default.png')}}" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <h4>David <br> <span>Italy</span></h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx">
-                                <img src="{{url('/images/avatar_default.png')}}" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <h4>David <br> <span>Italy</span></h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx">
-                                <img src="{{url('/images/avatar_default.png')}}" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <h4>David <br> <span>Italy</span></h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx">
-                                <img src="{{url('/images/avatar_default.png')}}" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <h4>David <br> <span>Italy</span></h4>
-                        </td>
-                    </tr>
+                    @foreach($lstRecentCustomer as $user)
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx">
+                                    <img src="{{$user->image}}" alt="">
+                                </div>
+                            </td>
+                            <td>
+                                <h4>{{$user->full_name}} <br> <span>{{$user->email}}</span></h4>
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
             </div>
 
